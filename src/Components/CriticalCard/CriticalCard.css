@@ -1,0 +1,17 @@
+/* #fef2f2 */
+.critical_card {
+  /* width: 40rem; */
+  display: flex;
+  padding: 1em;
+  gap: 1.5rem;
+  background-color: white;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+}
+.card_data {
+  color: #aaa4b2;
+}
+.critical_card h2 {
+  font-size: 1.75;
+  font-weight: 700;
+}
