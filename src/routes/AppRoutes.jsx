@@ -13,6 +13,7 @@ import EditDoctor from "../pages/Doctor/EditDoctor";
 import PatientProfile from "../pages/Patient/PatientProfile";
 import AddMeasurement from "../pages/Patient/AddMeasurement";
 import SearchDoctor from "../pages/Patient/SearchDoctor";
+import LandingPage from "../pages/Auth/LandingPage";
 
 
 export default function AppRoutes() {
@@ -20,7 +21,7 @@ export default function AppRoutes() {
         <BrowserRouter>
         <Routes>
     {/* صفحة افتراضية */}
-    <Route path="/" element={<Login />} />
+    <Route path="/" element={<LandingPage />} />
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} /> 
 
