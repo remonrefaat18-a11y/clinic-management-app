@@ -39,9 +39,7 @@ function DataCardPatient() {
 
       {patients.length > 6 && (
         <button className="see_all" onClick={() => setShowAll(!showAll)}>
-          {showAll
-            ? "Hide extra appointments"
-            : `View all appointments (${patients.length})`}
+          {showAll ? "Hide extra " : `View all  (${patients.length})`}
         </button>
       )}
     </div>

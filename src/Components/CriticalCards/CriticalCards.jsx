@@ -10,6 +10,26 @@ const styleTwo = {
   backgroundColor: "#fefbe8",
   border: "0.1rem solid #ffdd88",
 };
+const critical = [
+  {
+    name: "Aisha Mohammed",
+    message: "الحالة: ارتفاع ضغط الدم",
+    time: " 2024-01-05",
+    style: style,
+  },
+  {
+    name: "Aisha Mohammed",
+    message: "الحالة: ارتفاع ضغط الدم",
+    time: " 2024-01-05",
+    style: styleTwo,
+  },
+  {
+    name: "Aisha Mohammed",
+    message: "الحالة: ارتفاع ضغط الدم",
+    time: " 2024-01-05",
+    style: styleTwo,
+  },
+];
 function CriticalCards() {
   return (
     <div className="container">
@@ -20,24 +40,15 @@ function CriticalCards() {
         Critical alerts ( 3 )
       </h2>
       <div className="cards_container">
-        <CriticalCard
-          style={style}
-          message={"sdjdjsdjsjddjjjjdjjdjdjdjdjjdjdjdjdjdjdj"}
-          time={"30m ago"}
-          name={"yassa"}
-        />
-        <CriticalCard
-          style={styleTwo}
-          message={"sdjdjsdjsjddjjjjdjjdjdjdjdjjdjdjdjdjdjdj"}
-          time={"30m ago"}
-          name={"yassa"}
-        />
-        <CriticalCard
-          style={styleTwo}
-          message={"sdjdjsdjsjddjjjjdjjdjdjdjdjjdjdjdjdjdjdj"}
-          time={"30m ago"}
-          name={"yassa"}
-        />
+        {critical.map((critical, index) => (
+          <CriticalCard
+            key={index}
+            style={critical.style}
+            message={critical.message}
+            time={critical.time}
+            name={critical.name}
+          />
+        ))}
       </div>
     </div>
   );

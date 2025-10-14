@@ -4,6 +4,8 @@
 :root {
   --color-bg-doctor-profile: #f9fafc;
   --color-navbar-doctor: #ffffff;
+  --border-card-color: #e3e5e7;
+  --text-sec-color: #968e91;
 }
 * {
   margin: 0;

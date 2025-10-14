@@ -12,7 +12,7 @@
   width: 100%;
   height: auto;
   background-color: var(--color-navbar-doctor);
-  border-bottom: 0.1rem solid #e5e7eb;
+  border-bottom: 0.1rem solid var(--border-card-color);
   display: flex;
   justify-content: space-between;
   gap: 2rem;
@@ -78,7 +78,7 @@
   align-items: center;
   font-size: 1.4rem;
   font-weight: 500;
-  border: 0.1rem solid #e5e7eb;
+  border: 0.1rem solid var(--border-card-color);
   padding: 0.75rem 1.5rem;
   border-radius: 1rem;
   width: 100%;
@@ -91,7 +91,7 @@
   gap: 0.5rem;
   font-size: 1.4rem;
   font-weight: 500;
-  border: 0.1rem solid #e5e7eb;
+  border: 0.1rem solid var(--border-card-color);
   padding: 0.75rem 1.5rem;
   border-radius: 1rem;
   width: 40%;

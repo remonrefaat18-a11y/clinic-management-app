@@ -7,7 +7,7 @@
   font-weight: 500;
   height: 15rem;
   border-radius: 1.5rem;
-  border: 0.2rem solid #e3e5e7;
+  border: 0.2rem solid var(--border-card-color);
 }
 .type_top {
   display: flex;
@@ -24,4 +24,7 @@
 }
 .info_card p:last-child {
   color: #6c757d;
+}
+.num {
+  color: black;
 }

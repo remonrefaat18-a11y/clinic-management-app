@@ -1,0 +1,45 @@
+.contaier {
+  background-color: white;
+  border: 0.2rem solid var(--border-card-color);
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+}
+h2 {
+  font-size: 2rem;
+}
+p {
+  display: flex;
+  gap: 0.5rem;
+  color: var(--text-sec-color);
+}
+.left_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.right_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.right_info button {
+  font-size: 1.5rem;
+  border: 0.2rem solid var(--border-card-color);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.right_info button:hover {
+  background-color: var(--border-card-color);
+}
+.right_info p {
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  color: white;
+}
