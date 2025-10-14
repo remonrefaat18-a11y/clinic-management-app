@@ -1,12 +1,9 @@
 .tabs_container {
-  margin: 20rem;
-  width: 50rem;
   display: flex;
   justify-content: space-between;
   background-color: #ecebf0;
   padding: 0.5rem;
   border-radius: 2rem;
-  width: 70%;
   box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.05);
 }
 

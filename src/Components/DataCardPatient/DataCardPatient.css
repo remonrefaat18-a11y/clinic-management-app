@@ -1,0 +1,45 @@
+.patient_info_container {
+  background-color: white;
+  border: 0.2rem solid #e3e5e7;
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.type {
+  font-size: 2rem;
+}
+.container_card {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.1rem solid #e3e5e7;
+  padding: 1rem;
+  align-items: center;
+}
+.container_card p:first-child {
+  font-size: 2rem;
+  font-weight: 400;
+}
+.container_card .patient_info p:last-child {
+  font-size: 1.5rem;
+  color: #968e91;
+}
+.patient_info_container p:last-child {
+  font-size: 1.5rem;
+  color: red;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1.5rem;
+}
+.see_all {
+  padding: 0.5rem 1rem;
+  border: 0.1rem solid #e3e5e7;
+  border-radius: 1rem;
+  width: 50%;
+  align-self: center;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+.see_all:hover {
+  background-color: #e3e5e7;
+  cursor: pointer;
+}
