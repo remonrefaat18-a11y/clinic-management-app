@@ -1,11 +1,11 @@
-import "./AllCard.css";
+import styles from "./AllCard.module.css";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { RiPulseFill } from "react-icons/ri";
 import { BiPhoneCall } from "react-icons/bi";
 function AllCard({ name, info, status, conf, bgColor, SecIcon, color }) {
   return (
-    <div className="contaier">
-      <div className="left_info">
+    <div className={styles.allcard_contaier}>
+      <div className={styles.left_info}>
         <h2>{name}</h2>
         <p>
           <AiOutlineSchedule />
@@ -16,7 +16,7 @@ function AllCard({ name, info, status, conf, bgColor, SecIcon, color }) {
           {status}
         </p>
       </div>
-      <div className="right_info">
+      <div className={styles.right_info}>
         <p style={{ backgroundColor: bgColor, color: color }}>{conf}</p>
         <button>
           <SecIcon />

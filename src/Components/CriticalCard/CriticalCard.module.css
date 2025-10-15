@@ -8,7 +8,7 @@
   border-radius: 1rem;
 }
 .card_data {
-  color: #aaa4b2;
+  color: var(--text-sec-color);
 }
 .critical_card h2 {
   font-size: 1.75;

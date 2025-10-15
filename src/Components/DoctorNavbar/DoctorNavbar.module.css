@@ -8,7 +8,7 @@
 @media (min-width: 992px) {
 }
 
-.doctor-navbar {
+.doctor_navbar {
   width: 100%;
   height: auto;
   background-color: var(--color-navbar-doctor);
@@ -19,7 +19,7 @@
   padding: 2rem 8rem;
 }
 @media (max-width: 768px) {
-  .doctor-navbar {
+  .doctor_navbar {
     height: auto;
     display: flex;
     flex-direction: column;

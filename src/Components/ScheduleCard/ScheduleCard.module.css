@@ -1,0 +1,33 @@
+.schedule_card_container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border: 0.1rem solid var(--border-card-color);
+  font-size: 1.5rem;
+  align-items: center;
+  border-radius: 1rem;
+}
+
+.card_right {
+  display: flex;
+  gap: 1rem;
+}
+.clock {
+  color: var(--time-color);
+  font-size: 5rem;
+  padding: 1.25rem;
+  background-color: #d9ecf9;
+  border-radius: 0.75rem;
+}
+.name {
+  color: var(--text--color);
+  font-size: 2rem;
+}
+.card_right_info:last-child {
+  font-size: 1.5rem;
+  color: var(--text-sec-color);
+}
+.time {
+  color: var(--time-color);
+  font-size: 2rem;
+}

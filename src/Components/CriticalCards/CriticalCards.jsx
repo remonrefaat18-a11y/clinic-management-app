@@ -1,5 +1,5 @@
 import CriticalCard from "../CriticalCard/CriticalCard";
-import "./CriticalCards.css";
+import styles from "./CriticalCards.module.css";
 import { BsExclamationTriangle } from "react-icons/bs";
 
 const style = {
@@ -32,14 +32,14 @@ const critical = [
 ];
 function CriticalCards() {
   return (
-    <div className="container">
+    <div className={styles.container}>
       <h2>
         <span>
           <BsExclamationTriangle />
         </span>
         Critical alerts ( 3 )
       </h2>
-      <div className="cards_container">
+      <div className={styles.cards_container}>
         {critical.map((critical, index) => (
           <CriticalCard
             key={index}

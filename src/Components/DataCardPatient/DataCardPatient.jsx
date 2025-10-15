@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./DataCardPatient.css";
+import styles from "./DataCardPatient.module.css";
 
 const patients = [
   {
@@ -25,8 +25,8 @@ function DataCardPatient() {
   const visiblePatients = showAll ? patients : patients.slice(0, 6);
 
   return (
-    <div className="patient_info_container">
-      <p className="type">Patients' condition</p>
+    <div className={styles.patient_info_container}>
+      <p className={styles.type}>Patients' condition</p>
 
       {visiblePatients.map((patient, index) => (
         <Patient
@@ -38,7 +38,7 @@ function DataCardPatient() {
       ))}
 
       {patients.length > 6 && (
-        <button className="see_all" onClick={() => setShowAll(!showAll)}>
+        <button className={styles.see_all} onClick={() => setShowAll(!showAll)}>
           {showAll ? "Hide extra " : `View all  (${patients.length})`}
         </button>
       )}
@@ -50,8 +50,8 @@ function Patient({ name, condition, status }) {
   const backgroundColor =
     status === "Critical" || status === "Established" ? "#f9e8e1" : "#fef6c6";
   return (
-    <div className="container_card">
-      <div className="patient_info">
+    <div className={styles.container_card}>
+      <div className={styles.patient_info}>
         <p>{name}</p>
         <p>{condition}</p>
       </div>

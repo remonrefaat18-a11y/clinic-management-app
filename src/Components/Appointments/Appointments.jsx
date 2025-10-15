@@ -1,5 +1,5 @@
 import AllCard from "../AllCard/AllCard";
-import "./Appointments.css";
+import styles from "./Appointments.module.css";
 import { FaRegMessage } from "react-icons/fa6";
 const appoin = [
   {
@@ -42,7 +42,7 @@ const appoin = [
 
 function Appointments() {
   return (
-    <div className="container_appointment">
+    <div className={styles.container_appointment}>
       <h2>Next Appoientments</h2>
       {appoin.map((appoin, index) => (
         <AllCard
@@ -52,7 +52,7 @@ function Appointments() {
           status={appoin.status}
           conf={appoin.conf}
           bgColor={appoin.conf === "conf" ? "#0a0000" : "#555"}
-          color={appoin.conf === "conf" ? "fffffff" : "#555"}
+          color={appoin.conf === "conf" ? "fffffff" : "ffffff"}
           SecIcon={FaRegMessage}
         />
       ))}

@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import "./SwitchBar.css";
+import styles from "./SwitchBar.module.css";
 
 const tabData = ["Overview", "Appointments", "patients", "table"];
 
-function SwitchBar() {
-  const [activeTab, setActiveTab] = useState(tabData[0]);
-
+function SwitchBar({ activeTab, setActiveTab }) {
   return (
-    <div className="tabs_container">
+    <div className={styles.tabs_container}>
       {tabData.map((tabName) => (
         <button
           key={tabName}
-          className={`tab_button ${activeTab === tabName ? "active" : ""}`}
+          className={`${styles.tab_button} ${
+            activeTab === tabName ? styles.active : ""
+          }`}
           onClick={() => setActiveTab(tabName)}
         >
           {tabName}

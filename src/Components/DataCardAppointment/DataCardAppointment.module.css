@@ -6,8 +6,9 @@
   display: flex;
   flex-direction: column;
 }
-.type {
+.types {
   font-size: 2rem;
+  color: var(--text--color);
 }
 .container_card {
   display: flex;
@@ -22,11 +23,11 @@
 }
 .container_card .today_info p:last-child {
   font-size: 1.5rem;
-  color: var(--border-card-color);
+  color: var(--text-sec-color);
 }
 .today_info_container p:last-child {
   font-size: 1.5rem;
-  color: #5e97ec;
+  color: var(--time-color);
 }
 .see_all {
   padding: 0.5rem 1rem;
@@ -40,4 +41,8 @@
 .see_all:hover {
   background-color: var(--border-card-color);
   cursor: pointer;
+}
+
+.names {
+  color: var(--text--color);
 }

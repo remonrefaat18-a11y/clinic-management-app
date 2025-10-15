@@ -1,14 +1,14 @@
-import "./InfoCard.css";
+import styles from "./InfoCard.module.css";
 
 function InfoCard({ about, number, note, iconColor, Icon }) {
   return (
-    <div className="alert_card">
-      <div className="type_top">
+    <div className={styles.alert_card}>
+      <div className={styles.type_top}>
         <h2>{about}</h2>
         <Icon style={{ color: iconColor }} />
       </div>
-      <div className="info_card">
-        <p className="num">{number}</p>
+      <div className={styles.info_card}>
+        <p className={styles.num}>{number}</p>
         <p>{note}</p>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./DataCardAppointment.css";
+import styles from "./DataCardAppointment.module.css";
 
 const appointments = [
   { name: "Aisha Mohammed", type: "First reveal", time: "9:00 AM" },
@@ -18,8 +18,8 @@ function DataCardAppointment() {
   const visibleAppointments = showAll ? appointments : appointments.slice(0, 6);
 
   return (
-    <div className="today_info_container">
-      <p className="type">Today's schedule</p>
+    <div className={styles.today_info_container}>
+      <p className={styles.types}>Today's schedule</p>
 
       {visibleAppointments.map((appointment, index) => (
         <Appointment
@@ -31,7 +31,7 @@ function DataCardAppointment() {
       ))}
 
       {appointments.length > 6 && (
-        <button className="see_all" onClick={() => setShowAll(!showAll)}>
+        <button className={styles.see_all} onClick={() => setShowAll(!showAll)}>
           {showAll ? "Hide extra" : `View all  (${appointments.length})`}
         </button>
       )}
@@ -41,9 +41,9 @@ function DataCardAppointment() {
 
 function Appointment({ name, type, time }) {
   return (
-    <div className="container_card">
-      <div className="today_info">
-        <p>{name}</p>
+    <div className={styles.container_card}>
+      <div className={styles.today_info}>
+        <p className={styles.names}>{name}</p>
         <p>{type}</p>
       </div>
       <p>{time}</p>

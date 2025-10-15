@@ -8,6 +8,7 @@
 }
 .type {
   font-size: 2rem;
+  color: black;
 }
 .container_card {
   display: flex;
@@ -19,6 +20,7 @@
 .container_card p:first-child {
   font-size: 2rem;
   font-weight: 400;
+  color: black;
 }
 .container_card .patient_info p:last-child {
   font-size: 1.5rem;

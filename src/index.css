@@ -5,7 +5,9 @@
   --color-bg-doctor-profile: #f9fafc;
   --color-navbar-doctor: #ffffff;
   --border-card-color: #e3e5e7;
+  --text--color: #000c1f;
   --text-sec-color: #968e91;
+  --time-color: #3871df;
 }
 * {
   margin: 0;

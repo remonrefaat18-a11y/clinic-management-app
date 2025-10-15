@@ -1,5 +1,5 @@
 import AllCard from "../AllCard/AllCard";
-import "./Patients.css";
+import styles from "./Patients.module.css";
 import { GoFileSubmodule } from "react-icons/go";
 
 const patient = [
@@ -42,7 +42,7 @@ const patient = [
 ];
 function Patients() {
   return (
-    <div className="container_patient">
+    <div className={styles.container_patient}>
       <h2>Patients List</h2>
       {patient.map((patient, index) => (
         <AllCard

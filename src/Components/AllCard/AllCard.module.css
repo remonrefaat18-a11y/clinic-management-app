@@ -1,6 +1,6 @@
-.contaier {
+.allcard_contaier {
   background-color: white;
-  border: 0.2rem solid var(--border-card-color);
+  border: 0.1rem solid var(--border-card-color);
   display: flex;
   padding: 1rem;
   justify-content: space-between;
@@ -10,7 +10,7 @@
 h2 {
   font-size: 2rem;
 }
-p {
+.allcard_contaier p {
   display: flex;
   gap: 0.5rem;
   color: var(--text-sec-color);
