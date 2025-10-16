@@ -1,14 +1,59 @@
-
+import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography"; 
 import Button from '@mui/material/Button';
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useAuth } from "../../context/AuthContext";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig"
 
 
 function Login() {
+  const {login}=useAuth();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+
+  const handleLogin=async (e)=>{
+    e.preventDefault();
+    console.log("✅ handleLogin fired");
+    
+
+  try{
+    const userCredential = await login(email, password);
+    const user = userCredential.user;
+
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+        const userData = userSnap.data();
+        if (userData.role === "doctor") {
+          navigate("/doctor/profile");
+        }else if(userData.role === "patient"){
+          navigate("/patient/profile");
+        }else {
+          console.error("Unknown user role:", userData.role);
+              setError("حدث خطأ في تحديد نوع المستخدم.");
+
+        }
+    } else {
+      setError("بيانات المستخدم غير موجودة، برجاء المحاولة مرة أخرى");
+      }
+      } catch (error) {
+      setError("خطأ في تسجيل الدخول. تأكد من البريد وكلمة المرور.");
+      console.error(error);
+
+    }    
+  }
+
+
     return (
         <Box
   sx={{
@@ -62,6 +107,7 @@ function Login() {
 
       <Box
         component="form"
+        onSubmit={handleLogin}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -80,6 +126,8 @@ function Login() {
           <input
             id="email"
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="أدخل بريدك الإلكتروني"
             style={{
               padding: "10px",
@@ -103,6 +151,8 @@ function Login() {
           <input
             id="password"
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="أدخل كلمة المرور"
             style={{
               padding: "10px",
@@ -115,8 +165,14 @@ function Login() {
             required
           />
         </Box>
+        {error && (
+              <Typography color="error" align="center">
+                {error}
+              </Typography>
+            )}
 
         <Button
+          type="submit"
           variant="contained"
           disableElevation
           sx={{ py: 1.5, fontSize: "16px" }}
