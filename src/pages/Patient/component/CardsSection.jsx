@@ -12,7 +12,7 @@ export default function CardsSection() {
         gap: 2,
         justifyContent: "center",
         flexWrap: "wrap",
-        mt: 2,
+        mt: 1,
       }}
     >
       <Cards title="ضغط الدم" value="123/80" status="طبيعي" icon= {<ShowChartIcon style={{color:"red"}}/>} />

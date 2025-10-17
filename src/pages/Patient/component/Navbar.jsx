@@ -7,8 +7,10 @@ import AddIcon from "@mui/icons-material/Add";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -43,24 +45,27 @@ export default function Navbar() {
                 backgroundColor: "rgb(30, 95, 225)",
                 textTransform: "none",
               }}
+              onClick={() => navigate("/patient/doctors/search")}
             >
               <SearchIcon sx={{ mr: 0.5 }} /> البحث عن طبيب
             </Button>
-            <Button
+            <Button  onClick={() => navigate("/patient/measurement/add")}
               variant="contained"
               sx={{
                 backgroundColor: "rgb(45, 154, 45)",
                 textTransform: "none",
               }}
             >
-              <AddIcon sx={{ mr: 0.5 }} /> إضافة قياس
+              <AddIcon sx={{ mr: 0.5 }} /> إضافة قياس 
             </Button>
-            <Button
+            <Button  
+            
               variant="outlined"
               sx={{
                 borderColor: "#e5e5e5",
                 textTransform: "none",
               }}
+              onClick={() => navigate("/login")}
             >
               <LogoutIcon sx={{ mr: 0.5 }} /> خروج
             </Button>

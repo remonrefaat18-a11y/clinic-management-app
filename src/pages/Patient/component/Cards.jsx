@@ -8,7 +8,7 @@ export default function Cards({ title, value, status,icon }) {
   return (
     <Card
       sx={{
-        width: 250,
+        width: 350,
         border: "solid #e5e5e5 .5px",
         borderRadius: "10px",
         boxShadow: "none",
@@ -34,7 +34,7 @@ export default function Cards({ title, value, status,icon }) {
           <Typography sx={{ color: "#555", fontWeight: "500" }}>
             {title}
           </Typography>
-          <Typography>
+          <Typography style={{marginLeft:"7rem"}}>
             {icon}
         </Typography>
           </div>
