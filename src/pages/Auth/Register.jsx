@@ -217,12 +217,13 @@ function Register() {
                 <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", mt: 2 }}>
                   <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
                     {[
-                      { name: "name", type: "text", placeholder: "اكتب اسمك بالكامل" },
-                      { name: "email", type: "email", placeholder: "example@email.com" },
-                      { name: "phone", type: "tel", placeholder: "0123456789" },
-                      { name: "birthDate", type: "date" },
+                      { name: "name", label: "الاسم الكامل", type: "text", placeholder: "اكتب اسمك بالكامل" },
+                      { name: "email", label: "البريد الإلكتروني", type: "email", placeholder: "example@email.com" },
+                      { name: "phone", label: "رقم الهاتف", type: "tel", placeholder: "0123456789" },
+                      { name: "birthDate", label: "تاريخ الميلاد", type: "date" },
                       {
                         name: "gender",
+                        label: "النوع",
                         type: "select",
                         options: [
                           { value: "", text: "اختر النوع" },
@@ -230,9 +231,9 @@ function Register() {
                           { value: "female", text: "أنثى" },
                         ],
                       },
-                      { name: "emergencyNumber", type: "tel", placeholder: "رقم للطوارئ" },
-                      { name: "password", type: "password", placeholder: "********" },
-                      { name: "confirmPassword", type: "password", placeholder: "********" },
+                      { name: "emergencyNumber", label: "رقم الطوارئ", type: "tel", placeholder: "رقم للطوارئ" },
+                      { name: "password", label: "كلمة المرور", type: "password", placeholder: "********" },
+                      { name: "confirmPassword", label: "تأكيد كلمة المرور", type: "password", placeholder: "********" },
                     ].map((field, i) => (
                       <Grid item xs={12} sm={6} key={i}>
                         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -294,18 +295,18 @@ function Register() {
               <CustomTabPanel value={value} index={1}>
                 <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", mt: 2 }}>
                   <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
-                    {[
-                      {name: "name", type: "text", placeholder: "اكتب اسمك بالكامل" },
-                      {name: "email", type: "email", placeholder: "example@email.com" },
-                      {name:"phone", type: "tel", placeholder: "0123456789" },
-                      {name: "specialization", type: "text", placeholder: "اكتب تخصصك الطبي" },
-                      {name: "password", type: "text", placeholder: "*********" },
-                      {name: "confirmPassword", type: "password", placeholder: "********" },
-                      {name:"experience",type:"text", placeholder: "10" },
-                      {name:"price" ,type:"text", placeholder: "100" },
-                      {name:"education",type:"text", placeholder: "جامعة القاهرة-كلية الطب" },
-                      {name:"location",type:"text", placeholder: "المعادي -القاهرة" },
-                      {name:"about", type:"text", placeholder: "اخصائي قلب و اوعية دموية ......" }
+                    {[             
+                        { name: "name", label: "الاسم الكامل", type: "text", placeholder: "اكتب اسمك بالكامل" },
+                        { name: "email", label: "البريد الإلكتروني", type: "email", placeholder: "example@email.com" },
+                        { name: "phone", label: "رقم الهاتف", type: "tel", placeholder: "0123456789" },
+                        { name: "specialization", label: "التخصص الطبي", type: "text", placeholder: "اكتب تخصصك الطبي" },
+                        { name: "password", label: "كلمة المرور", type: "password", placeholder: "*********" },
+                        { name: "confirmPassword", label: "تأكيد كلمة المرور", type: "password", placeholder: "********" },
+                        { name: "experience", label: "عدد سنوات الخبرة", type: "text", placeholder: "10" },
+                        { name: "price", label: "سعر الكشف", type: "text", placeholder: "100" },
+                        { name: "education", label: "المؤهل الدراسي", type: "text", placeholder: "جامعة القاهرة - كلية الطب" },
+                        { name: "location", label: "العنوان", type: "text", placeholder: "المعادي - القاهرة" },
+                        { name: "about", label: "نبذة عنك", type: "text", placeholder: "أخصائي قلب وأوعية دموية ..." },
                     ].map((field, i) => (
                       <Grid item xs={12} sm={6} key={i}>
                         <Box sx={{ display: "flex", flexDirection: "column" }}>
