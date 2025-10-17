@@ -1,6 +1,6 @@
 .schedule_container {
   background-color: white;
-  border: 0.2rem solid var(--border-card-color);
+  border: 0.1rem solid var(--border-card-color);
   border-radius: 1rem;
   padding: 2rem;
   display: flex;

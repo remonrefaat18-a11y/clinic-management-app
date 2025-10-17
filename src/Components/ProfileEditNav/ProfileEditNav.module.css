@@ -1,0 +1,38 @@
+.container {
+  width: 100%;
+  height: auto;
+  background-color: var(--color-navbar-doctor);
+  border-bottom: 0.1rem solid var(--border-card-color);
+  display: flex;
+  gap: 4rem;
+  padding: 2rem 8rem;
+  font-size: 1.5rem;
+  align-items: center;
+}
+.back {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+}
+.back:hover {
+  border-radius: 1rem;
+  background-color: var(--border-card-color);
+}
+.person {
+  font-size: 3rem;
+
+  color: var(--time-color);
+}
+.container h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 1rem;
+    gap: 2rem;
+  }
+}

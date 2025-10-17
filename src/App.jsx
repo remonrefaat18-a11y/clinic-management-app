@@ -1,13 +1,16 @@
-import { BiLogoChrome } from "react-icons/bi";
-import DoctorProfile from "./pages/Doctor/DoctorProfile";
-import AllCard from "./Components/AllCard/AllCard";
-import Appointments from "./Components/Appointments/Appointments";
-import ScheduleCard from "./Components/ScheduleCard/ScheduleCard";
+import { useState } from "react";
+import EditDoctor from "./pages/Doctor/EditDoctor/EditDoctor";
+import DoctorProfile from "./pages/Doctor/DoctorProfile/DoctorProfile";
 
 function App() {
+  const [activePage, setActivePage] = useState("profile");
+
   return (
     <>
-      <DoctorProfile />
+      {activePage === "profile" && (
+        <DoctorProfile setActivePage={setActivePage} />
+      )}
+      {activePage === "edit" && <EditDoctor setActivePage={setActivePage} />}
     </>
   );
 }

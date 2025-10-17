@@ -1,4 +1,4 @@
-.container_appointment {
+.working_container {
   background-color: white;
   border: 0.1rem solid var(--border-card-color);
   border-radius: 1rem;
@@ -6,4 +6,9 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+h2 {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }

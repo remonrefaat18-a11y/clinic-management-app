@@ -1,8 +1,8 @@
 import styles from "./DoctorNavbar.module.css";
 import { AiOutlineSetting } from "react-icons/ai";
-// import { IoMdExit } from "react-icons/io";
 import { BiExit } from "react-icons/bi";
-function DoctorNavbar() {
+
+function DoctorNavbar({ setActivePage }) {
   return (
     <div className={`${styles.doctor_navbar} shadow-sm`}>
       <div className={styles.doctor_name}>
@@ -10,15 +10,19 @@ function DoctorNavbar() {
 
         <div className={styles.doctor_info}>
           <h1>Hello, Dr. Sara Ahmed</h1>
-          <h2>Doctor's Control Panal</h2>
+          <h2>Doctor's Control Panel</h2>
         </div>
       </div>
 
       <div className={styles.btns}>
-        <button className={styles.profile_btn}>
+        <button
+          className={styles.profile_btn}
+          onClick={() => setActivePage("edit")}
+        >
           <AiOutlineSetting />
-          Profile Mangment
+          Profile Management
         </button>
+
         <button className={styles.exit_btn}>
           <BiExit />
           Exit
@@ -27,4 +31,5 @@ function DoctorNavbar() {
     </div>
   );
 }
+
 export default DoctorNavbar;

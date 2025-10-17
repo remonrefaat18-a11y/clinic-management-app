@@ -1,18 +1,18 @@
 import styles from "./DoctorProfile.module.css";
 import React, { useState } from "react";
-import DoctorNavbar from "../../Components/DoctorNavbar/DoctorNavbar";
-import CriticalCards from "../../Components/CriticalCards/CriticalCards";
-import InfoCards from "../../Components/InfoCards/InfoCards";
-import SwitchBar from "../../Components/SwitchBar/SwitchBar";
-import OverviewCard from "../../Components/OverviewCard/OverviewCard";
-import Appointments from "../../Components/Appointments/Appointments";
-import Patients from "../../Components/Patients/Patients";
-import Schedule from "../../Components/Schedule/Schedule";
-function DoctorProfile() {
+import DoctorNavbar from "../../../Components/DoctorNavbar/DoctorNavbar";
+import CriticalCards from "../../../Components/CriticalCards/CriticalCards";
+import InfoCards from "../../../Components/InfoCards/InfoCards";
+import SwitchBar from "../../../Components/SwitchBar/SwitchBar";
+import OverviewCard from "../../../Components/OverviewCard/OverviewCard";
+import Appointments from "../../../Components/Appointments/Appointments";
+import Patients from "../../../Components/Patients/Patients";
+import Schedule from "../../../Components/Schedule/Schedule";
+function DoctorProfile({ setActivePage }) {
   const [activeTab, setActiveTab] = useState("Overview");
   return (
     <>
-      <DoctorNavbar />;
+      <DoctorNavbar setActivePage={setActivePage} />;
       <div className={styles.doctorProfile}>
         <CriticalCards />
         <InfoCards />

@@ -4,7 +4,7 @@ import { BsExclamationTriangle } from "react-icons/bs";
 
 const style = {
   backgroundColor: "#fef2f2",
-  border: "0.1rem solid red",
+  border: "0.1rem solid #e58185",
 };
 const styleTwo = {
   backgroundColor: "#fefbe8",

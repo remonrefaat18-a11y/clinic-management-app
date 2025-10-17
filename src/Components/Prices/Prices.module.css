@@ -1,0 +1,28 @@
+.basic_contaier {
+  background-color: white;
+  border: 0.1rem solid var(--border-card-color);
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.basic_contaier h2 {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.form_contaier {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+@media (max-width: 768px) {
+  .basic_contaier {
+    padding: 1.5rem;
+  }
+
+  .form_contaier {
+    grid-template-columns: 1fr;
+  }
+}
