@@ -44,6 +44,11 @@ export default function Navbar() {
               sx={{
                 backgroundColor: "rgb(30, 95, 225)",
                 textTransform: "none",
+
+                "&:focus": {
+      outline: "none",
+      boxShadow: "none",
+    },
               }}
               onClick={() => navigate("/patient/doctors/search")}
             >
@@ -54,6 +59,11 @@ export default function Navbar() {
               sx={{
                 backgroundColor: "rgb(45, 154, 45)",
                 textTransform: "none",
+
+                "&:focus": {
+      outline: "none",
+      boxShadow: "none",
+    },
               }}
             >
               <AddIcon sx={{ mr: 0.5 }} /> إضافة قياس 
@@ -64,8 +74,18 @@ export default function Navbar() {
               sx={{
                 borderColor: "#e5e5e5",
                 textTransform: "none",
+                
+
+              "&:focus": {
+      outline: "none",
+      boxShadow: "none",
+    },
+
+
               }}
               onClick={() => navigate("/login")}
+              
+              
             >
               <LogoutIcon sx={{ mr: 0.5 }} /> خروج
             </Button>

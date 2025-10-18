@@ -4,6 +4,8 @@ import MeasurementForm from "./component/MeasurementForm";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {IconButton} from "@mui/material";
+import UseMeasurementLogic from "../Patient/component/UseMeasurementLogic";
+
 
 import {
   Box,
@@ -16,7 +18,10 @@ import {
 
 
 export default function AddMeasurement() {
-  const navigate = useNavigate();
+
+   const navigate = useNavigate();
+  const { measurement, statuses, handleChange, handleSave, isFormValid } =
+    UseMeasurementLogic();
   return (
 
     <Box sx={{ backgroundColor: "#f0f9ff" , minHeight: "100vh" }}>
@@ -66,8 +71,20 @@ export default function AddMeasurement() {
         </Box>
       
     
-      <MeasurementForm/>
+        <MeasurementForm
+        values={measurement}
+        statuses={statuses}
+        onChange={handleChange}
+        onSave={handleSave}
+        isFormValid={isFormValid}
+      />
     
+
+
+
+
+
+
 
 
 

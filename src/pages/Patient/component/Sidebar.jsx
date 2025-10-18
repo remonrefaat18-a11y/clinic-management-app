@@ -16,6 +16,28 @@ import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
    const navigate = useNavigate();
+
+
+
+
+
+  const handleDownloadPDF = () => {
+  // هنا بنحدد رابط التقرير أو بنولّده
+  const fileUrl = "/reports/patient-report.pdf"; // غيّري المسار حسب مكان الملف الفعلي
+
+  // إنشاء رابط تحميل خفي
+  const link = document.createElement("a");
+  link.href = fileUrl;
+  link.download = "تقرير-المريض.pdf"; // اسم الملف اللي هيتحمل
+  link.click(); // يبدأ التحميل فورًا
+};
+
+
+
+
+
+
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 , marginLeft:"25px" }}>
 
@@ -47,11 +69,17 @@ export default function Sidebar() {
           <Stack
             direction="row"
             spacing={2}
-            style={{ display: "flex", flexDirection: "column" ,marginRight:"20px",gap:"5px" }}
+            sx={{ display: "flex", flexDirection: "column" ,marginRight:"20px",gap:"5px","&:focus": {
+      outline: "none",
+      boxShadow: "none",
+    }, }}
           >
             <Button
               variant="outlined"
-              style={{ color: "#000", border: "solid #e5e5e5  .5px " ,  marginLeft:"15px" }}
+              sx={{ color: "#000", border: "solid #e5e5e5  .5px " ,  marginLeft:"15px" ,"&:focus": {
+      outline: "none",
+      boxShadow: "none",
+    },}}
               startIcon={<AddIcon />}
               fullWidth
               onClick={() => navigate("/patient/measurement/add")}
@@ -60,18 +88,29 @@ export default function Sidebar() {
             </Button>
             <Button
               variant="outlined"
-              style={{ color: "#000", border: "solid #e5e5e5  .5px "  }}
+              sx={{ color: "#000", border: "solid #e5e5e5  .5px "  ,"&:focus": {
+      outline: "none",
+      boxShadow: "none",
+    },}}
               startIcon={<GetAppIcon />}
               fullWidth
+
+
+              
+              onClick={handleDownloadPDF}
             >
               تحميل تقرير pdf 
             </Button>
             <Button
               variant="outlined"
-              style={{ color: "#000", border: "solid #e5e5e5  .5px " }}
+              sx={{ color: "#000", border: "solid #e5e5e5  .5px " , "&:focus": {
+      outline: "none",
+      boxShadow: "none",
+    }, }}
               startIcon={<SearchIcon />}
               onClick={() => navigate("/patient/doctors/search")}
               fullWidth
+              
 
               
             >
