@@ -84,6 +84,10 @@
   width: 120%;
   gap: 0.5rem;
 }
+.profile_btn:hover {
+  background-color: var(--border-card-color);
+  transition: all 0.2s;
+}
 .exit_btn {
   display: flex;
   justify-content: center;
@@ -95,4 +99,8 @@
   padding: 0.75rem 1.5rem;
   border-radius: 1rem;
   width: 40%;
+}
+.exit_btn:hover {
+  background-color: var(--border-card-color);
+  transition: all 0.2s;
 }

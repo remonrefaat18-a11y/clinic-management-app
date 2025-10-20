@@ -2,7 +2,12 @@ import InputCard from "../InputCard/InputCard";
 import styles from "./ContactInformation.module.css";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 
-function ContactInformation() {
+function ContactInformation({ data, setData }) {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  };
+
   return (
     <div className={styles.contact_contaier}>
       <h2>
@@ -11,35 +16,38 @@ function ContactInformation() {
       </h2>
       <div className={styles.form_contaier}>
         <InputCard
-          label={"Phone Number"}
-          type={"text"}
-          placeholder={"Your Phone Number"}
-          // value={}
-          name={"phone"}
+          label="Phone Number"
+          type="text"
+          name="phone"
+          placeholder="Your Phone Number"
+          value={data.phone}
+          onChange={handleChange}
         />
         <InputCard
-          label={"E-mail"}
-          type={"email"}
-          placeholder={"Your E-mail"}
-          // value={""}
-          name={"email"}
+          label="E-mail"
+          type="email"
+          name="email"
+          placeholder="Your E-mail"
+          value={data.email}
+          onChange={handleChange}
         />
         <InputCard
-          label={"The Area"}
-          type={"text"}
-          placeholder={""}
-          // value={""}
-          name={"area"}
+          label="The Area"
+          type="text"
+          name="area"
+          value={data.area}
+          onChange={handleChange}
         />
         <InputCard
-          label={"Detailed Adrres"}
-          type={"text"}
-          placeholder={""}
-          // value={""}
-          name={"adress"}
+          label="Detailed Address"
+          type="text"
+          name="adress"
+          value={data.adress}
+          onChange={handleChange}
         />
       </div>
     </div>
   );
 }
+
 export default ContactInformation;
