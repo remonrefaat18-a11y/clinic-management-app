@@ -1,3 +1,5 @@
+import DoctorCard from "../../components/doctorCard";
+
 export default function SearchDoctor() {
   return (
     <div className="min-h-screen font-[sans-serif]">
@@ -77,23 +79,15 @@ export default function SearchDoctor() {
         </h2>
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
           {/* Doctor Card */}
-          <div className="border border-gray-300 rounded-2xl p-4 flex flex-col items-center text-center"> 
-            <img
-              src="https://via.placeholder.com/100"
-              alt="Doctor"
-                className="w-24 h-24 rounded-full mb-4"
-            />
-            <h3 className="text-lg font-semibold text-gray-800">د. أحمد علي</h3>
-            <p className="text-gray-600">أخصائي قلب</p>
-            <p className="text-gray-600">القاهرة</p>
-            <p className="text-blue-600 font-semibold mt-2"> 200 جنية</p>
-            <button className="mt-4 bg-blue-600 font-semibold text-white px-4 py-2 rounded-xl hover:bg-blue-800 transition">
-                 عرض الملف الشخصي وحجز موعد
-            </button>
-          </div>
-          {/* Repeat Doctor Card as needed */}
+          <DoctorCard
+                      name ="Dr. Jane Smith"
+                      specialty="Pediatrician"
+                      location="City Central Clinic"
+                      price= {50}
+                      />
+          <DoctorCard name = 'Hello' speciality='ehat'/>
+          <DoctorCard name = 'what' speciality='how'/>
         </div>
-
       </section>
     </div>
   );
