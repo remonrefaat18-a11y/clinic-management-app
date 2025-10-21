@@ -32,17 +32,10 @@ function ContactInformation({ data, setData }) {
           onChange={handleChange}
         />
         <InputCard
-          label="The Area"
+          label="Location"
           type="text"
           name="area"
-          value={data.area}
-          onChange={handleChange}
-        />
-        <InputCard
-          label="Detailed Address"
-          type="text"
-          name="adress"
-          value={data.adress}
+          value={data.location}
           onChange={handleChange}
         />
       </div>

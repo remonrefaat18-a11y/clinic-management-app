@@ -14,14 +14,16 @@ function BasicInfo({ data, setData }) {
         <BsPersonGear className={styles.contact} />
         Basic information
       </h2>
+
       <div className={styles.form_contaier}>
         <InputCard
           label="Full name"
           type="text"
-          name="fullname"
-          value={data.fullname}
+          name="name"
+          value={data.name}
           onChange={handleChange}
         />
+
         <InputCard
           label="Specialization"
           type="text"
@@ -29,25 +31,28 @@ function BasicInfo({ data, setData }) {
           value={data.specialization}
           onChange={handleChange}
         />
+
         <InputCard
           label="Years of experience"
           type="text"
-          name="YearsOfExperience"
-          value={data.YearsOfExperience}
+          name="experience"
+          value={data.experience}
           onChange={handleChange}
         />
+
         <InputCard
           label="Education"
           type="text"
-          name="Education"
-          value={data.Education}
+          name="education"
+          value={data.education}
           onChange={handleChange}
         />
+
         <InputCard
           label="Introduction"
           type="text"
-          name="Introduction"
-          value={data.Introduction}
+          name="about"
+          value={data.about}
           onChange={handleChange}
         />
       </div>

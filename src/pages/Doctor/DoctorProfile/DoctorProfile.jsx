@@ -8,11 +8,14 @@ import OverviewCard from "../../../Components/OverviewCard/OverviewCard";
 import Appointments from "../../../Components/Appointments/Appointments";
 import Patients from "../../../Components/Patients/Patients";
 import Schedule from "../../../Components/Schedule/Schedule";
-function DoctorProfile({ setActivePage }) {
+import { useNavigate } from "react-router-dom";
+
+function DoctorProfile() {
   const [activeTab, setActiveTab] = useState("Overview");
+  const navigate = useNavigate();
   return (
     <>
-      <DoctorNavbar setActivePage={setActivePage} />;
+      <DoctorNavbar onEditClick={() => navigate("/doctor/profile/edit")} />;
       <div className={styles.doctorProfile}>
         <CriticalCards />
         <InfoCards />

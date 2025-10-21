@@ -1,6 +1,5 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 :root {
   --color-bg-doctor-profile: #f9fafc;
   --color-navbar-doctor: #ffffff;
@@ -14,11 +13,9 @@
   padding: 0;
   box-sizing: inherit;
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 html {
-  font-size: 62.5%;
   box-sizing: border-box;
 }
 
@@ -26,16 +23,6 @@ body {
   font-family: "Poppins", sans-serif;
   color: #000c1f;
   background-color: var(--color-bg-doctor-profile);
-  /* padding: 2rem; */
   min-height: 100dvh;
 }
-
-/* sm */
-@media (min-width: 576px) {
-}
-/* md */
-@media (min-width: 768px) {
-}
-/* lg */
-@media (min-width: 992px) {
-}
+@tailwind utilities;

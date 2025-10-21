@@ -1,10 +1,16 @@
 import styles from "./ProfileEditNav.module.css";
+import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
 import { BsPersonGear } from "react-icons/bs";
-function ProfileEditNav({ setActivePage }) {
+function ProfileEditNav() {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate("/doctor/profile");
+  };
   return (
     <div className={styles.container}>
-      <button className={styles.back} onClick={() => setActivePage("profile")}>
+      <button className={styles.back} onClick={handleBack}>
         <FaArrowLeft className={styles.arrow} />
         <p>Back</p>
       </button>

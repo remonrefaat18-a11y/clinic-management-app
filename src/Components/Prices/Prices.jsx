@@ -18,8 +18,8 @@ function Prices({ data, setData }) {
         <InputCard
           label="First (pound) revealed"
           type="number"
-          name="firstRevealed"
-          value={data.firstRevealed}
+          name="price"
+          value={data.price}
           onChange={handleChange}
         />
         <InputCard

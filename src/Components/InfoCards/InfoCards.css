@@ -1,5 +1,5 @@
 .info_cards_container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(26.5rem, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(16.5625rem, 1fr));
+  gap: 0.9375rem;
 }

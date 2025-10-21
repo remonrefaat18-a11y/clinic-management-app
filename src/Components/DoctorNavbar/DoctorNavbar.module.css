@@ -12,25 +12,27 @@
   width: 100%;
   height: auto;
   background-color: var(--color-navbar-doctor);
-  border-bottom: 0.1rem solid var(--border-card-color);
+  border-bottom: 0.0625rem solid var(--border-card-color);
   display: flex;
   justify-content: space-between;
-  gap: 2rem;
-  padding: 2rem 8rem;
+  gap: 1.25rem;
+  padding: 1.25rem 5rem;
 }
+
 @media (max-width: 768px) {
   .doctor_navbar {
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 2rem;
-    padding: 2rem 2rem;
+    gap: 1.25rem;
+    padding: 1.25rem 1.25rem;
   }
 }
+
 .doctor_name {
   display: flex;
-  gap: 2rem;
+  gap: 1.25rem;
 }
 
 @media (max-width: 768px) {
@@ -39,67 +41,73 @@
     justify-content: center;
   }
 }
+
 .doctor_info {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.3125rem;
 }
 
 .doctor_name h1 {
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-weight: bold;
 }
+
 .doctor_name h2 {
-  font-size: 1.5rem;
+  font-size: 0.9375rem;
   opacity: 0.6;
 }
 
 .doctor_name span {
-  width: 4rem;
-  height: 4rem;
+  width: 2.5rem;
+  height: 2.5rem;
   background-color: #ebeff6;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 0.9375rem;
   font-weight: 400;
 }
 
 .btns {
   display: flex;
-  gap: 1rem;
+  gap: 0.625rem;
   align-items: center;
 }
+
 .profile_btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  border: 0.1rem solid var(--border-card-color);
-  padding: 0.75rem 1.5rem;
-  border-radius: 1rem;
+  border: 0.0625rem solid var(--border-card-color);
+  padding: 0.46875rem 0.9375rem;
+  border-radius: 0.625rem;
   width: 120%;
-  gap: 0.5rem;
+  gap: 0.3125rem;
 }
+
 .profile_btn:hover {
   background-color: var(--border-card-color);
   transition: all 0.2s;
 }
+
 .exit_btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 1.4rem;
+  gap: 0.3125rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  border: 0.1rem solid var(--border-card-color);
-  padding: 0.75rem 1.5rem;
-  border-radius: 1rem;
+  border: 0.0625rem solid var(--border-card-color);
+  padding: 0.46875rem 0.9375rem;
+  border-radius: 0.625rem;
   width: 40%;
 }
+
 .exit_btn:hover {
   background-color: var(--border-card-color);
   transition: all 0.2s;

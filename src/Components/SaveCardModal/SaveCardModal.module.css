@@ -1,0 +1,75 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+
+  background: rgba(12, 12, 12, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+.card {
+  position: relative;
+  width: min(720px, 92%);
+  background-color: #ffffff;
+  border: 0.0625rem solid var(--border-card-color, #e3e5e7);
+  border-radius: 0.625rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(12, 15, 20, 0.08);
+  overflow: visible;
+  transform-origin: center;
+  animation: popIn 220ms ease;
+}
+
+@keyframes popIn {
+  from {
+    transform: translateY(8px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text--color, #000);
+  padding: 0.25rem;
+  border-radius: 6px;
+}
+.closeBtn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.content {
+  padding-top: 0.25rem;
+  padding-bottom: 0.75rem;
+}
+
+.footer {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+.footer .cancel {
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+.footer .cancel {
+  background: transparent;
+  border: 0.0625rem solid var(--border-card-color, #e3e5e7);
+}

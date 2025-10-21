@@ -1,33 +1,37 @@
 .schedule_card_container {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  border: 0.1rem solid var(--border-card-color);
-  font-size: 1.5rem;
+  padding: 0.625rem;
+  border: 0.0625rem solid var(--border-card-color);
+  font-size: 0.9375rem;
   align-items: center;
-  border-radius: 1rem;
+  border-radius: 0.625rem;
 }
 
 .card_right {
   display: flex;
-  gap: 1rem;
+  gap: 0.625rem;
 }
+
 .clock {
   color: var(--time-color);
-  font-size: 5rem;
-  padding: 1.25rem;
+  font-size: 3.125rem;
+  padding: 0.78125rem;
   background-color: #d9ecf9;
-  border-radius: 0.75rem;
+  border-radius: 0.46875rem;
 }
+
 .name {
   color: var(--text--color);
-  font-size: 2rem;
+  font-size: 1.25rem;
 }
+
 .card_right_info:last-child {
-  font-size: 1.5rem;
+  font-size: 0.9375rem;
   color: var(--text-sec-color);
 }
+
 .time {
   color: var(--time-color);
-  font-size: 2rem;
+  font-size: 1.25rem;
 }
