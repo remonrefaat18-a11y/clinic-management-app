@@ -1,7 +1,4 @@
+// AddMeasurement.jsx
 export default function AddMeasurement() {
-  return (
-    <div>
-      <h1>Search Doctor Page</h1>
-    </div>
-  );
+  return <div>Add Measurement Page</div>;
 }
