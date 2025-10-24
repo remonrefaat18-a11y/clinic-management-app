@@ -15,6 +15,7 @@ import PatientProfile from "../pages/Patient/PatientProfile";
 import AddMeasurement from "../pages/Patient/AddMeasurement";
 import SearchDoctor from "../pages/Patient/SearchDoctor";
 import LandingPage from "../pages/Auth/LandingPage";
+import  AddAppointment  from "../pages/Patient/AddAppointment.jsx";
 
 
 
@@ -33,6 +34,7 @@ export default function AppRoutes() {
     <Route path="/patient/profile" element={<PatientProfile />} />
     <Route path="/patient/measurement/add" element={<AddMeasurement />} />
     <Route path="/patient/doctors/search" element={<SearchDoctor />} />
+    <Route path="/patient/doctors/appointment/:id" element={<AddAppointment />} />
 
     {/* Not Found */}
     <Route path="*" element={<h1 style={{ textAlign: "center" }}>404 - Page Not Found</h1>} />

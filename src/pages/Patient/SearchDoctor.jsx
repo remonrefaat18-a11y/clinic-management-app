@@ -1,6 +1,71 @@
+import { useEffect, useState } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 import DoctorCard from "../../components/doctorCard";
 
 export default function SearchDoctor() {
+  const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Filters
+  const [searchTerm, setSearchTerm] = useState("");
+  const [specialty, setSpecialty] = useState("جميع التخصصات");
+  const [region, setRegion] = useState("جميع المناطق");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+
+  // Fetch
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      setLoading(true);
+      try {
+        const q = query(collection(db, "users"), where("role", "==", "doctor"));
+        const snapshot = await getDocs(q);
+
+        const list = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            name: data.name || "غير معروف",
+            specialization: data.specialization || "غير محدد",
+            location: data.location || "غير محدد",
+            price: Number(data.price) || 0,
+          };
+        });
+
+        setDoctors(list);
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
+
+  // Filter
+  const filteredDoctors = doctors.filter((doc) => {
+    const term = searchTerm.toLowerCase();
+
+    const matchText =
+      term === "" ||
+      doc.name.toLowerCase().includes(term) ||
+      doc.specialization.toLowerCase().includes(term) ||
+      doc.location.toLowerCase().includes(term);
+
+    const matchSpecialty =
+      specialty === "جميع التخصصات" || doc.specialization.includes(specialty) || specialty.includes(doc.specialization);
+
+    const matchRegion = region === "جميع المناطق" || doc.location.includes(region) || region.includes(doc.location);
+
+    const matchPrice =
+      (!minPrice || doc.price >= Number(minPrice)) &&
+      (!maxPrice || doc.price <= Number(maxPrice));
+
+    return matchText && matchSpecialty && matchRegion && matchPrice;
+  });
+
   return (
     <div className="min-h-screen font-[sans-serif]">
       {/* Navigation */}
@@ -23,7 +88,9 @@ export default function SearchDoctor() {
             <label className="block text-gray-700 mb-1">البحث</label>
             <input
               type="text"
-              placeholder="اسم الطبيب أو التخصص"
+              placeholder="اسم الطبيب أو التخصص أو المنطقة"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
@@ -31,16 +98,31 @@ export default function SearchDoctor() {
           {/* Specialty */}
           <div>
             <label className="block text-gray-700 mb-1">التخصص</label>
-            <select className="w-full border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <select
+              value={specialty}
+              onChange={(e) => setSpecialty(e.target.value)}
+              className="w-full border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            >
               <option>جميع التخصصات</option>
+              <option>اخصائي قلب و اوعية دموية</option>
+              <option>عيون</option>
+              <option>أطفال</option>
+              <option>جلدية</option>
             </select>
           </div>
 
           {/* Region */}
           <div>
             <label className="block text-gray-700 mb-1">المنطقة</label>
-            <select className="w-full border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <select
+              value={region}
+              onChange={(e) => setRegion(e.target.value)}
+              className="w-full border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            >
               <option>جميع المناطق</option>
+              <option>القاهرة</option>
+              <option>الاسكندرية</option>
+              <option>الجيزة</option>
             </select>
           </div>
 
@@ -51,11 +133,15 @@ export default function SearchDoctor() {
               <input
                 type="number"
                 placeholder="من"
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
                 className="w-1/2 border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
               <input
                 type="number"
                 placeholder="إلى"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
                 className="w-1/2 border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
@@ -65,28 +151,48 @@ export default function SearchDoctor() {
         {/* Reset Button */}
         <div className="mt-6">
           <button
-            type="reset"
+            type="button"
+            onClick={() => {
+              setSearchTerm("");
+              setSpecialty("جميع التخصصات");
+              setRegion("جميع المناطق");
+              setMinPrice("");
+              setMaxPrice("");
+            }}
             className="border border-gray-400 text-gray-700 px-4 py-2 rounded-xl hover:bg-gray-100 transition"
           >
             إعادة تعيين الفلاتر
           </button>
         </div>
       </section>
+
       {/* Doctor List */}
       <section className="bg-white rounded-2xl shadow-sm p-6 m-6">
         <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-800">
           🩺 قائمة الأطباء
         </h2>
+
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-          {/* Doctor Card */}
-          <DoctorCard
-                      name ="Dr. Jane Smith"
-                      specialty="Pediatrician"
-                      location="City Central Clinic"
-                      price= {50}
-                      />
-          <DoctorCard name = 'Hello' speciality='ehat'/>
-          <DoctorCard name = 'what' speciality='how'/>
+          {loading ? (
+            <p className="text-gray-500 text-center col-span-full">
+              جاري التحميل...
+            </p>
+          ) : filteredDoctors.length > 0 ? (
+            filteredDoctors.map((doc) => (
+              <DoctorCard
+                key={doc.id}
+                id={doc.id} 
+                name={doc.name}
+                specialization={doc.specialization}
+                location={doc.location}
+                price={doc.price}
+              />
+            ))
+          ) : (
+            <p className="text-gray-500 text-center col-span-full">
+              لا يوجد أطباء مطابقة للبحث.
+            </p>
+          )}
         </div>
       </section>
     </div>
