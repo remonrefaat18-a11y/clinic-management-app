@@ -99,7 +99,7 @@ function CriticalCards({ onCriticalCountChange }) {
 
         if (onCriticalCountChange) onCriticalCountChange(criticals.length);
       } catch (error) {
-        console.error("Error fetching critical data:", error);
+        console.error("خطأ في جلب البيانات الهامة:", error);
       }
     };
 
@@ -112,7 +112,7 @@ function CriticalCards({ onCriticalCountChange }) {
         <span>
           <BsExclamationTriangle />
         </span>
-        Critical alerts ( {criticalPatients.length} )
+        تنبيهات حرجة ( {criticalPatients.length} )
       </h2>
 
       <div className={styles.cards_container}>

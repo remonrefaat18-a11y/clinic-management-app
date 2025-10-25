@@ -12,12 +12,12 @@ function BasicInfo({ data, setData }) {
     <div className={styles.basic_contaier}>
       <h2>
         <BsPersonGear className={styles.contact} />
-        Basic information
+        المعلومات الأساسية
       </h2>
 
       <div className={styles.form_contaier}>
         <InputCard
-          label="Full name"
+          label="الاسم الكامل"
           type="text"
           name="name"
           value={data.name}
@@ -25,7 +25,7 @@ function BasicInfo({ data, setData }) {
         />
 
         <InputCard
-          label="Specialization"
+          label="التخصص"
           type="text"
           name="specialization"
           value={data.specialization}
@@ -33,7 +33,7 @@ function BasicInfo({ data, setData }) {
         />
 
         <InputCard
-          label="Years of experience"
+          label="سنوات الخبرة"
           type="text"
           name="experience"
           value={data.experience}
@@ -41,7 +41,7 @@ function BasicInfo({ data, setData }) {
         />
 
         <InputCard
-          label="Education"
+          label="تعليم"
           type="text"
           name="education"
           value={data.education}
@@ -49,7 +49,7 @@ function BasicInfo({ data, setData }) {
         />
 
         <InputCard
-          label="Introduction"
+          label="مقدمة"
           type="text"
           name="about"
           value={data.about}

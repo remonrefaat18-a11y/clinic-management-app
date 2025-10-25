@@ -20,7 +20,7 @@ function Appointments({ doctorId }) {
 
         setAppointments(doctorAppointments);
       } catch (err) {
-        console.error("Error fetching appointments:", err);
+        console.error("خطأ في جلب المواعيد:", err);
       }
     };
 
@@ -29,17 +29,17 @@ function Appointments({ doctorId }) {
 
   return (
     <div className={styles.container_appointment}>
-      <h2>Next Appointments</h2>
+      <h2>المواعيد القادمة</h2>
       {appointments.length === 0 ? (
-        <p>No appointments found</p>
+        <p>لم يتم العثور على مواعيد</p>
       ) : (
         appointments.map((app, index) => (
           <AllCard
             key={index}
-            name={app.userName || "Unknown Patient"}
-            info={app.time || app.date || "No time"}
-            status={app.serviceType || "Scheduled"}
-            phone={app.userPhone || "No number"}
+            name={app.userName || "مريض غير معروف"}
+            info={app.time || app.date || "غير محدد"}
+            status={app.serviceType || "غير محدد"}
+            phone={app.userPhone || "لا يوجد"}
           />
         ))
       )}

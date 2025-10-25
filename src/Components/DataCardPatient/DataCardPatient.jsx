@@ -41,7 +41,7 @@ function DataCardPatient({ doctorId }) {
             const patientMeasurements = measurementsData.filter(
               (m) => m.userId === id
             );
-            let status = "Normal follow-up";
+            let status = "متابعة عادية";
             let conditions = [];
 
             for (const m of patientMeasurements) {
@@ -56,49 +56,49 @@ function DataCardPatient({ doctorId }) {
 
               // ضغط الدم
               if (systolic > 170 || diastolic > 110) {
-                status = "Critical";
-                if (!conditions.includes("High blood pressure"))
-                  conditions.push("High blood pressure");
+                status = "حرج";
+                if (!conditions.includes("ارتفاع ضغط الدم"))
+                  conditions.push("ارتفاع ضغط الدم");
                 break;
               } else if (
                 (systolic > 140 && systolic <= 170) ||
                 (diastolic > 90 && diastolic <= 110)
               ) {
-                if (!conditions.includes("High blood pressure"))
-                  conditions.push("High blood pressure");
-                status = status !== "Critical" ? "Needs follow-up" : status;
+                if (!conditions.includes("ارتفاع ضغط الدم"))
+                  conditions.push("ارتفاع ضغط الدم");
+                status = status !== "حرج" ? "يحتاج متابعة" : status;
               }
 
               // السكر
               if (sugar > 250) {
-                status = "Critical";
-                if (!conditions.includes("High sugar"))
-                  conditions.push("High sugar");
+                status = "حرج";
+                if (!conditions.includes("سكر عالي جدًا"))
+                  conditions.push("سكر عالي جدًا");
                 break;
               } else if (sugar > 180 && sugar <= 250) {
-                if (!conditions.includes("High sugar"))
-                  conditions.push("High sugar");
-                status = status !== "Critical" ? "Needs follow-up" : status;
+                if (!conditions.includes("سكري يحتاج متابعة"))
+                  conditions.push("سكري يحتاج متابعة");
+                status = status !== "حرج" ? "يحتاج متابعة" : status;
               }
 
               // النبض
               if (heartRate < 50 || heartRate > 120) {
-                status = "Critical";
-                if (!conditions.includes("Irregular heart rate"))
-                  conditions.push("Irregular heart rate");
+                status = "حرج";
+                if (!conditions.includes("معدل ضربات غير طبيعي"))
+                  conditions.push("معدل ضربات غير طبيعي");
                 break;
               } else if (
                 (heartRate < 60 || heartRate > 100) &&
-                !conditions.includes("Irregular heart rate")
+                !conditions.includes("معدل ضربات غير طبيعي")
               ) {
-                conditions.push("Irregular heart rate");
-                status = status !== "Critical" ? "Needs follow-up" : status;
+                conditions.push("معدل ضربات غير طبيعي");
+                status = status !== "حرج" ? "يحتاج متابعة" : status;
               }
             }
 
             return {
               name: user.name,
-              condition: conditions.join(", ") || "Normal",
+              condition: conditions.join(", ") || "طبيعي",
               status,
             };
           })
@@ -106,7 +106,7 @@ function DataCardPatient({ doctorId }) {
 
         setPatients(patientsData);
       } catch (err) {
-        console.error("Error fetching patients:", err);
+        console.error("حدث خطأ أثناء جلب بيانات المرضى:", err);
       }
     };
 
@@ -117,7 +117,7 @@ function DataCardPatient({ doctorId }) {
 
   return (
     <div className={styles.patient_info_container}>
-      <p className={styles.type}>Patients' condition</p>
+      <p className={styles.type}>حالة المرضى</p>
 
       {visiblePatients.map((patient, index) => (
         <Patient
@@ -130,7 +130,7 @@ function DataCardPatient({ doctorId }) {
 
       {patients.length > 6 && (
         <button className={styles.see_all} onClick={() => setShowAll(!showAll)}>
-          {showAll ? "Hide extra " : `View all  (${patients.length})`}
+          {showAll ? "إخفاء الباقي" : `عرض الكل (${patients.length})`}
         </button>
       )}
     </div>
@@ -139,9 +139,9 @@ function DataCardPatient({ doctorId }) {
 
 function Patient({ name, condition, status }) {
   const backgroundColor =
-    status === "Critical"
+    status === "حرج"
       ? "#fef2f2"
-      : status === "Needs follow-up"
+      : status === "يحتاج متابعة"
       ? "#fefbe8"
       : "#e0f7fa";
 

@@ -23,7 +23,7 @@ function DataCardAppointment({ doctorId }) {
 
         setAppointments(allAppointments); // أو todayAppointments
       } catch (err) {
-        console.error("Error fetching appointments:", err);
+        console.error("خطأ في جلب المواعيد:", err);
       }
     };
 
@@ -34,20 +34,20 @@ function DataCardAppointment({ doctorId }) {
 
   return (
     <div className={styles.today_info_container}>
-      <p className={styles.types}>Today's schedule</p>
+      <p className={styles.types}>جدول اليوم</p>
 
       {visibleAppointments.map((appointment, index) => (
         <Appointment
           key={index}
-          name={appointment.userName || "Unknown"}
-          type={appointment.serviceType || "Unknown"}
-          time={appointment.time || ""}
+          name={appointment.userName || "غير معروف"}
+          type={appointment.serviceType || "غير معروف"}
+          time={appointment.time || "غير محدد"}
         />
       ))}
 
       {appointments.length > 6 && (
         <button className={styles.see_all} onClick={() => setShowAll(!showAll)}>
-          {showAll ? "Hide extra" : `View all  (${appointments.length})`}
+          {showAll ? " إخفاء الباقي" : `عرض الكل  (${appointments.length})`}
         </button>
       )}
     </div>

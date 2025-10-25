@@ -12,25 +12,25 @@ function Prices({ data, setData }) {
     <div className={styles.basic_contaier}>
       <h2>
         <FiDollarSign className={styles.contact} />
-        Prices
+        الأسعار
       </h2>
       <div className={styles.form_contaier}>
         <InputCard
-          label="First (pound) revealed"
+          label="كشف أول (جنيه)"
           type="number"
           name="price"
           value={data.price}
           onChange={handleChange}
         />
         <InputCard
-          label="Follow-up disclosure (pound)"
+          label="كشف متابعة (جنيه)"
           type="number"
           name="followUp"
           value={data.followUp}
           onChange={handleChange}
         />
         <InputCard
-          label="Telephone consultation (pound)"
+          label="استشارة هاتفية (جنيه)"
           type="number"
           name="TelephoneConsultation"
           value={data.TelephoneConsultation}

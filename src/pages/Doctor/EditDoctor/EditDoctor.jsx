@@ -34,12 +34,10 @@ function EditDoctor() {
   const [modalMessage, setModalMessage] = useState("");
   const [isError, setIsError] = useState(false);
 
-  // Firebase Auth
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setDoctorId(user.uid);
-        console.log(user.uid);
       } else {
         navigate("/login");
       }
@@ -47,7 +45,6 @@ function EditDoctor() {
     return unsubscribe;
   }, [navigate]);
 
-  //get the data from Firestore
   useEffect(() => {
     if (!doctorId) return;
 
@@ -60,7 +57,6 @@ function EditDoctor() {
           const data = docSnap.data();
           const merged = { ...defaultData, ...data };
 
-          //calc followUp ,Tele
           if (
             !merged.followUp &&
             !merged.TelephoneConsultation &&
@@ -70,18 +66,18 @@ function EditDoctor() {
             merged.followUp = Math.max(basePrice - 50, 0);
             merged.TelephoneConsultation = Math.max(basePrice - 150, 0);
           }
+
           setDoctorData(merged);
           setInitialData(merged);
         } else {
           await setDoc(docRef, defaultData);
         }
       } catch (error) {
-        console.error("❌ Error fetching doctor data:", error);
+        console.error("❌ خطأ في جلب بيانات الطبيب:", error);
       }
     };
 
     fetchDoctorData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doctorId]);
 
   const handleSave = async () => {
@@ -89,13 +85,10 @@ function EditDoctor() {
       let updatedData = { ...doctorData };
       const basePrice = parseFloat(updatedData.price) || 0;
 
-      // first sign
       if (!updatedData.followUp && !updatedData.TelephoneConsultation) {
         updatedData.followUp = Math.max(basePrice - 50, 0);
         updatedData.TelephoneConsultation = Math.max(basePrice - 150, 0);
-      }
-      //if the doctor change
-      else if (
+      } else if (
         basePrice !== parseFloat(initialData.price) &&
         updatedData.followUp === initialData.followUp &&
         updatedData.TelephoneConsultation === initialData.TelephoneConsultation
@@ -110,12 +103,12 @@ function EditDoctor() {
       localStorage.setItem("doctorData", JSON.stringify(updatedData));
       setInitialData(updatedData);
 
-      setModalMessage("✅ Your Data has been Saved Successfully!");
+      setModalMessage("✅ تم حفظ البيانات بنجاح!");
       setIsError(false);
       setIsModalOpen(true);
     } catch (error) {
-      console.error("❌ Error saving doctor data:", error);
-      setModalMessage("❌ Failed to Save Data. Please Try Again!");
+      console.error("❌ خطأ في حفظ بيانات الطبيب:", error);
+      setModalMessage("❌ فشل حفظ البيانات. حاول مرة أخرى!");
       setIsError(true);
       setIsModalOpen(true);
     }
@@ -130,23 +123,19 @@ function EditDoctor() {
     <>
       <ProfileEditNav />
       <div className={styles.editDoctor}>
-        {/* Basic Info */}
         <BasicInfo data={doctorData} setData={setDoctorData} />
 
-        {/* Contact Info */}
         <ContactInformation data={doctorData} setData={setDoctorData} />
 
-        {/* Prices */}
         <Prices data={doctorData} setData={setDoctorData} />
 
-        {/* Buttons */}
         <div className={styles.btn}>
           <button className={styles.cancel} onClick={handleCancel}>
-            Cancel
+            إلغاء
           </button>
           <button className={styles.save} onClick={handleSave}>
             <BiSave />
-            Save changes
+            حفظ التغييرات
           </button>
         </div>
       </div>

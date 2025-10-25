@@ -12,23 +12,23 @@ function DoctorNavbar({ onEditClick, name }) {
   return (
     <div className={`${styles.doctor_navbar} shadow-sm`}>
       <div className={styles.doctor_name}>
-        <span>D</span>
+        <span>د</span>
 
         <div className={styles.doctor_info}>
-          <h1>{`Hello, Dr. ${name}`}</h1>
-          <h2>Doctor's Control Panel</h2>
+          <h1>{`مرحبا د. ${name}`}</h1>
+          <h2>لوحة تحكم الطبيب</h2>
         </div>
       </div>
 
       <div className={styles.btns}>
         <button className={styles.profile_btn} onClick={onEditClick}>
           <AiOutlineSetting />
-          Profile Management
+          إدارة الملف الشخصي
         </button>
 
         <button className={styles.exit_btn} onClick={handleExit}>
           <BiExit />
-          Exit
+          خروج
         </button>
       </div>
     </div>

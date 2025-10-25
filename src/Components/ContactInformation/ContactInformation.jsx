@@ -12,27 +12,27 @@ function ContactInformation({ data, setData }) {
     <div className={styles.contact_contaier}>
       <h2>
         <HiOutlineLocationMarker className={styles.contact} />
-        Contact info and address
+        معلومات الاتصال والعنوان
       </h2>
       <div className={styles.form_contaier}>
         <InputCard
-          label="Phone Number"
+          label="ؤقم الهاتف"
           type="text"
           name="phone"
-          placeholder="Your Phone Number"
+          placeholder="رقم هاتفك"
           value={data.phone}
           onChange={handleChange}
         />
         <InputCard
-          label="E-mail"
+          label="البريد"
           type="email"
           name="email"
-          placeholder="Your E-mail"
+          placeholder="بريدك"
           value={data.email}
           onChange={handleChange}
         />
         <InputCard
-          label="Location"
+          label="العنوان"
           type="text"
           name="area"
           value={data.location}

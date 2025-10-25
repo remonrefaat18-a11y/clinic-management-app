@@ -12,10 +12,10 @@ function ProfileEditNav() {
     <div className={styles.container}>
       <button className={styles.back} onClick={handleBack}>
         <FaArrowLeft className={styles.arrow} />
-        <p>Back</p>
+        <p>العوده</p>
       </button>
       <BsPersonGear className={styles.person} />
-      <h1>Profile Management</h1>
+      <h1>إدارة الملف الشخصي</h1>
     </div>
   );
 }

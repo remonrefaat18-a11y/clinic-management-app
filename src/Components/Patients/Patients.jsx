@@ -59,7 +59,7 @@ function Patients({ doctorId }) {
               (lastMeasurement.heartRate || "").toString().trim()
             );
 
-            let condition = "Normal follow-up";
+            let condition = "متابعة عادية";
             if (systolic > 170 || diastolic > 110)
               condition = "ارتفاع ضغط الدم";
             else if (sugar > 250) condition = "سكري عالي جدًا";
@@ -70,14 +70,14 @@ function Patients({ doctorId }) {
             return {
               name: user.name || "مريض غير معروف",
               condition,
-              lastVisit: lastMeasurement.lastVisit || "",
+              lastMeasurement: lastMeasurement.date || "",
             };
           })
           .filter(Boolean);
 
         setPatients(patientsData);
       } catch (err) {
-        console.error("Error fetching patients:", err);
+        console.error("خطأ في جلب المرضى:", err);
       }
     };
 
@@ -86,15 +86,15 @@ function Patients({ doctorId }) {
 
   return (
     <div className={styles.container_patient}>
-      <h2>Patients List</h2>
+      <h2>قائمة المرضى</h2>
       {patients.map((patient, index) => (
         <AllCard
           key={index}
           name={patient.name}
-          info={`اخر زيارة: ${patient.lastVisit || "Undetermined"} `}
+          info={`اخر قياس: ${patient.lastMeasurement || "غير محدد"} `}
           status={`الحالة: ${patient.condition}`}
           SecIcon={GoFileSubmodule}
-          phone={patient.userPhone || "No number"}
+          phone={patient.userPhone || "لا يوجد"}
         />
       ))}
     </div>

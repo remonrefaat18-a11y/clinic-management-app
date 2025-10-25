@@ -58,7 +58,7 @@ function InfoCards({ doctorId }) {
         setActivePatients(repeatedPatients);
         setCriticalCases(criticals);
       } catch (err) {
-        console.error("Error fetching InfoCards data:", err);
+        console.error("حدث خطأ أثناء جلب بيانات :", err);
       }
     };
 
@@ -69,33 +69,33 @@ function InfoCards({ doctorId }) {
     <div className="info_cards_container">
       <InfoCard
         Icon={AiOutlineSchedule}
-        about={"Total appointments"}
+        about={"إجمالي الحجوزات"}
         number={appointmentsCount}
-        note={"All patients"}
+        note={"جميع المرضى"}
         iconColor={"#356ac8"}
       />
 
       <InfoCard
         Icon={BsPeople}
-        about={"Active patients"}
+        about={"المرضى النشطين"}
         number={activePatients}
-        note={"Under follow-up"}
+        note={"تحت المتابعة"}
         iconColor={"#e63b5b"}
       />
 
       <InfoCard
         Icon={BsExclamationTriangle}
-        about={"Critical cases"}
+        about={"الحالات الحرجة"}
         number={criticalCases}
-        note={"Need immediate follow-up"}
+        note={"تحتاج متابعة عاجلة"}
         iconColor={"#e63b5b"}
       />
 
       <InfoCard
         Icon={FaRegClock}
-        about={"Working hours"}
+        about={"ساعات العمل"}
         number={"8"}
-        note={"today"}
+        note={"اليوم"}
         iconColor={"#356ac8"}
       />
     </div>
