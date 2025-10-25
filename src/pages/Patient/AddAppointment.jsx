@@ -14,11 +14,11 @@ export default function DoctorAppointment() {
   const [activeTab, setActiveTab] = useState("نبذة");
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedService, setSelectedService] = useState("");
   const [confirmation, setConfirmation] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { currentUser } = useAuth();
-  const userName = auth.currentUser; 
+  const { currentUser, userData } = useAuth();
 
   // Fetch doctor data by ID
   useEffect(() => {
@@ -47,6 +47,10 @@ export default function DoctorAppointment() {
       setConfirmation("اختيار التاريخ والوقت أولاً");
       return;
     }
+    if (!selectedService) {
+      setConfirmation("يرجى اختيار نوع الكشف أولاً");
+      return;
+    }
 
     try {
       setLoading(true);
@@ -54,18 +58,22 @@ export default function DoctorAppointment() {
 
       // Add appointment document to Firestore
       await addDoc(collection(db, "appointments"), {
-        userName: currentUser?.displayName || currentUser?.email || "مستخدم غير معروف",
+        userName: userData?.name || "مستخدم غير معروف",
+        userEmail: currentUser?.email || "غير متوفر",
+        userPhone: userData?.phone || "غير متوفر",
         userId: currentUser?.uid || null,
         doctorName: doctorData?.name || "غير محدد",
         doctorId: id,
+        serviceType: selectedService,
         date: formattedDate,
         time: selectedTime,
         createdAt: serverTimestamp(),
       });
 
-      setConfirmation(`تم حجز يوم ${formattedDate} الساعة ${selectedTime}`);
+      setConfirmation(`تم حجز ${selectedService} يوم ${formattedDate} الساعة ${selectedTime}`);
       setSelectedDate(null);
       setSelectedTime(null);
+      setSelectedService("");
     } catch (error) {
       console.error("Error adding appointment:", error);
       setConfirmation("خطأ أثناء الحجز. حاول مرة أخرى.");
@@ -213,6 +221,38 @@ export default function DoctorAppointment() {
             ))}
           </div>
 
+          {/* الخدمات */}
+          <div className="mt-6 pt-4 text-gray-700">
+            <h4 className="text-lg font-semibold mb-2">الخدمات</h4>
+            {[
+              { label: "كشف أول", price: 300 },
+              { label: "كشف متابعة", price: 250 },
+              { label: "استشارة هاتفية", price: 150 },
+            ].map((option) => (
+              <label
+                key={option.label}
+                className={`flex justify-between items-center border rounded-xl p-2 mb-2 cursor-pointer transition ${
+                  selectedService === option.label
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-200 hover:bg-gray-50"
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="service"
+                    value={option.label}
+                    checked={selectedService === option.label}
+                    onChange={() => setSelectedService(option.label)}
+                    className="accent-blue-600"
+                  />
+                  {option.label}
+                </span>
+                <span className="font-medium text-gray-800">{option.price} جنيه</span>
+              </label>
+            ))}
+          </div>
+
           {/* Booking Button */}
           <button
             onClick={handleBooking}
@@ -241,23 +281,6 @@ export default function DoctorAppointment() {
               {confirmation}
             </Alert>
           )}
-
-          {/* الأسعار */}
-          <div className="mt-6 border-t pt-4 text-gray-700">
-            <h4 className="text-lg font-semibold mb-2">الأسعار</h4>
-            <div className="flex justify-between mb-1">
-              <span>كشف أول</span>
-              <span>300 جنيه</span>
-            </div>
-            <div className="flex justify-between mb-1">
-              <span>كشف متابعة</span>
-              <span>250 جنيه</span>
-            </div>
-            <div className="flex justify-between">
-              <span>استشارة هاتفية</span>
-              <span>150 جنيه</span>
-            </div>
-          </div>
 
           {/* التأمين */}
           <div className="mt-6 border-t pt-4 text-gray-700">
