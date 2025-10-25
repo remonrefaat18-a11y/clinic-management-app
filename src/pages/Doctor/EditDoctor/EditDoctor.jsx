@@ -39,6 +39,7 @@ function EditDoctor() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setDoctorId(user.uid);
+        console.log(user.uid);
       } else {
         navigate("/login");
       }

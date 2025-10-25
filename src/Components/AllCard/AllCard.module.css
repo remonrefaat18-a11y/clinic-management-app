@@ -28,19 +28,19 @@ h2 {
 .right_info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 0.3125rem;
 }
 
-.right_info button {
+.right_info a {
   font-size: 0.9375rem;
   border: 0.125rem solid var(--border-card-color);
   padding: 0.625rem;
   border-radius: 0.625rem;
 }
 
-.right_info button:hover {
+.right_info a:hover {
   background-color: var(--border-card-color);
 }
 

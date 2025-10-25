@@ -2,7 +2,7 @@ import styles from "./DoctorNavbar.module.css";
 import { AiOutlineSetting } from "react-icons/ai";
 import { BiExit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-function DoctorNavbar({ onEditClick }) {
+function DoctorNavbar({ onEditClick, name }) {
   const navigate = useNavigate();
 
   const handleExit = () => {
@@ -15,7 +15,7 @@ function DoctorNavbar({ onEditClick }) {
         <span>D</span>
 
         <div className={styles.doctor_info}>
-          <h1>Hello, Dr. Sara Ahmed</h1>
+          <h1>{`Hello, Dr. ${name}`}</h1>
           <h2>Doctor's Control Panel</h2>
         </div>
       </div>

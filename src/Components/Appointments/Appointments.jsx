@@ -1,62 +1,50 @@
+import { useEffect, useState } from "react";
 import AllCard from "../AllCard/AllCard";
 import styles from "./Appointments.module.css";
-import { FaRegMessage } from "react-icons/fa6";
-const appoin = [
-  {
-    name: "Aisha Mohammed",
-    status: "First reveal",
-    info: "9:00 AM",
-    conf: "conf",
-  },
-  {
-    name: "Aisha Mohammed",
-    status: "First reveal",
-    info: "9:00 AM",
-    conf: "not",
-  },
-  {
-    name: "Aisha Mohammed",
-    status: "First reveal",
-    info: "9:00 AM",
-    conf: "conf",
-  },
-  {
-    name: "Aisha Mohammed",
-    status: "First reveal",
-    info: "9:00 AM",
-    conf: "conf",
-  },
-  {
-    name: "Aisha Mohammed",
-    status: "First reveal",
-    info: "9:00 AM",
-    conf: "not",
-  },
-  {
-    name: "Aisha Mohammed",
-    status: "First reveal",
-    info: "9:00 AM",
-    conf: "conf",
-  },
-];
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
-function Appointments() {
+function Appointments({ doctorId }) {
+  const [appointments, setAppointments] = useState([]);
+
+  useEffect(() => {
+    if (!doctorId) return;
+
+    const fetchAppointments = async () => {
+      try {
+        const appointmentsSnap = await getDocs(collection(db, "appointments"));
+        const doctorAppointments = appointmentsSnap.docs
+          .map((doc) => ({ id: doc.id, ...doc.data() }))
+          .filter((a) => a.doctorId === doctorId)
+          .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        setAppointments(doctorAppointments);
+      } catch (err) {
+        console.error("Error fetching appointments:", err);
+      }
+    };
+
+    fetchAppointments();
+  }, [doctorId]);
+
   return (
     <div className={styles.container_appointment}>
-      <h2>Next Appoientments</h2>
-      {appoin.map((appoin, index) => (
-        <AllCard
-          key={index}
-          name={appoin.name}
-          info={appoin.info}
-          status={appoin.status}
-          conf={appoin.conf}
-          bgColor={appoin.conf === "conf" ? "#0a0000" : "#555"}
-          color={appoin.conf === "conf" ? "fffffff" : "ffffff"}
-          SecIcon={FaRegMessage}
-        />
-      ))}
+      <h2>Next Appointments</h2>
+      {appointments.length === 0 ? (
+        <p>No appointments found</p>
+      ) : (
+        appointments.map((app, index) => (
+          <AllCard
+            key={index}
+            name={app.userName || "Unknown Patient"}
+            info={app.time || app.date || "No time"}
+            status={app.serviceType || "Scheduled"}
+            phone={app.userPhone || "No number"}
+          />
+        ))
+      )}
     </div>
   );
 }
+
 export default Appointments;

@@ -1,6 +1,6 @@
 import styles from "./SwitchBar.module.css";
 
-const tabData = ["Overview", "Appointments", "patients", "table"];
+const tabData = ["Overview", "Appointments", "patients"];
 
 function SwitchBar({ activeTab, setActiveTab }) {
   return (

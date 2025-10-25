@@ -1,19 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./DataCardAppointment.module.css";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
-const appointments = [
-  { name: "Aisha Mohammed", type: "First reveal", time: "9:00 AM" },
-  { name: "Ahmed Salem", type: "tracking", time: "9:30 AM" },
-  { name: "Ahmed Mohamed Ali", type: "First reveal", time: "10:00 AM" },
-  { name: "Fatima Hassan", type: "tracking", time: "10:30 AM" },
-  { name: "Mohammed Salem", type: "First reveal", time: "11:00 AM" },
-  { name: "Mona Ahmed", type: "consultation", time: "11:30 AM" },
-  { name: "Sarah Ibrahim", type: "tracking", time: "12:00 PM" },
-  { name: "Hassan Ali", type: "consultation", time: "12:30 PM" },
-];
-
-function DataCardAppointment() {
+function DataCardAppointment({ doctorId }) {
+  const [appointments, setAppointments] = useState([]);
   const [showAll, setShowAll] = useState(false);
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      if (!doctorId) return;
+
+      try {
+        const snap = await getDocs(collection(db, "appointments"));
+        const allAppointments = snap.docs
+          .map((doc) => ({ id: doc.id, ...doc.data() }))
+          .filter((a) => a.doctorId === doctorId);
+
+        // لو تحب فلترة اليوم، ممكن تستخدم:
+        // const today = new Date().toISOString().split("T")[0];
+        // const todayAppointments = allAppointments.filter(a => a.date === today);
+
+        setAppointments(allAppointments); // أو todayAppointments
+      } catch (err) {
+        console.error("Error fetching appointments:", err);
+      }
+    };
+
+    fetchAppointments();
+  }, [doctorId]);
 
   const visibleAppointments = showAll ? appointments : appointments.slice(0, 6);
 
@@ -24,9 +39,9 @@ function DataCardAppointment() {
       {visibleAppointments.map((appointment, index) => (
         <Appointment
           key={index}
-          name={appointment.name}
-          type={appointment.type}
-          time={appointment.time}
+          name={appointment.userName || "Unknown"}
+          type={appointment.serviceType || "Unknown"}
+          time={appointment.time || ""}
         />
       ))}
 
