@@ -8,12 +8,39 @@ import Grid from "@mui/material/Grid";
 
 import WeeklyChart from "./component/charts/WeeklyChart";
 import MonthlyChart from "./component/charts/MonthlyChart";
-import { weeklyData, monthlyData } from "./component/charts/mockData";
+
+import usePatientMeasurements from "./component/charts/usePatientMeasurements";
+
+
+
 
 
 
 
 export default function PatientProfile() {
+
+
+
+ 
+
+
+
+           const measurements = usePatientMeasurements();
+
+  // ⏱️ آخر 7 قياسات (لأسبوعي)
+  const weeklyData = measurements.slice(-7);
+
+  // 📅 كل القياسات (للشهري)
+  const monthlyData = measurements;
+
+
+
+
+
+
+
+  
+
   return (
     <Box sx={{ backgroundColor: "#f0f9ff", minHeight: "100vh" }}>
 
@@ -84,6 +111,9 @@ export default function PatientProfile() {
 
 
 
+
+
+          
 
 
 

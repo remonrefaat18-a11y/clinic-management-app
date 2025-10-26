@@ -229,8 +229,10 @@ export default function MeasurementForm({
         <Button
           variant="contained"
           disabled={!isFormValid}
-          onClick={onSave}
-          onClick={() => navigate("/patient/profile")}
+          onClick={() => {
+              onSave(); 
+              navigate("/patient/profile"); 
+          }}
 
           sx={{ borderRadius: "8px", gap: "8px" ,
 

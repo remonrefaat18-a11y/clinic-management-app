@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import AppoinmentsList from "./AppoinmentsList";
+import AppoinmentsList from "./UpcomingAppointments";
 
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -13,6 +13,7 @@ import DirectionsRunSharpIcon from '@mui/icons-material/DirectionsRunSharp';
 import SoupKitchenSharpIcon from '@mui/icons-material/SoupKitchenSharp';
 import InvertColorsSharpIcon from '@mui/icons-material/InvertColorsSharp';
 import { useNavigate } from "react-router-dom";
+import UpcomingAppointments from "./UpcomingAppointments";
 
 export default function Sidebar() {
    const navigate = useNavigate();
@@ -76,7 +77,7 @@ export default function Sidebar() {
           >
             <Button
               variant="outlined"
-              sx={{ color: "#000", border: "solid #e5e5e5  .5px " ,  marginLeft:"15px" ,"&:focus": {
+              sx={{ color: "#000", border: "solid #e5e5e5  .5px " ,   marginLeft:"15px" ,"&:focus": {
       outline: "none",
       boxShadow: "none",
     },}}
@@ -84,11 +85,11 @@ export default function Sidebar() {
               fullWidth
               onClick={() => navigate("/patient/measurement/add")}
             >
-              اضافة قياس جديد
+              اضافة قياس جديد 
             </Button>
             <Button
               variant="outlined"
-              sx={{ color: "#000", border: "solid #e5e5e5  .5px "  ,"&:focus": {
+              sx={{ color: "#000", border: "solid #e5e5e5  .5px ", "&:focus": {
       outline: "none",
       boxShadow: "none",
     },}}
@@ -138,7 +139,7 @@ export default function Sidebar() {
 
 
       {/*المواعيد القادمة*/}
-      <AppoinmentsList/>
+      <UpcomingAppointments/>
       {/*==============المواعيد القادمة========*/}
 
 

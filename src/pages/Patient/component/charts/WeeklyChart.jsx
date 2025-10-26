@@ -16,12 +16,11 @@ export default function WeeklyChart({ data }) {
         borderRadius: "12px",
         padding: "16px",
         boxShadow: "0 1px 3px #ddd",
-         
-         width: "100%",       
-        maxWidth: "900px",   
-        margin: "0 auto", 
-         marginBottom: "24px",
 
+        width: "100%",
+        maxWidth: "900px",
+        margin: "0 auto",
+        marginBottom: "24px",
       }}
     >
       <h3 style={{ textAlign: "right", marginBottom: "10px" }}>
@@ -30,19 +29,25 @@ export default function WeeklyChart({ data }) {
 
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
-          <XAxis dataKey="day" />
+          <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
           <Legend verticalAlign="top" height={36} />
+        
+
           <Line
             type="monotone"
-            dataKey="ضغط_الدم"
+            dataKey="systolic"
             stroke="#ff4b4b"
             name="ضغط الدم"
-            activeDot={{ r: 6 }}
           />
-          <Line type="monotone" dataKey="سكر" stroke="#0088FE" name="السكر" />
-          <Line type="monotone" dataKey="نبض" stroke="#FF69B4" name="النبض" />
+          <Line type="monotone" dataKey="sugar" stroke="#0088FE" name="السكر" />
+          <Line
+            type="monotone"
+            dataKey="heartRate"
+            stroke="#FF69B4"
+            name="النبض"
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>

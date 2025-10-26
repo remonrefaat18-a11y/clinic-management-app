@@ -1,4 +1,3 @@
-
 import {
   BarChart,
   Bar,
@@ -17,8 +16,7 @@ export default function MonthlyChart({ data }) {
         borderRadius: "12px",
         padding: "16px",
         boxShadow: "0 1px 3px #ddd",
-        width:"40rem"
-        
+        width: "40rem",
       }}
     >
       <h3 style={{ textAlign: "right", marginBottom: "10px" }}>
@@ -27,13 +25,13 @@ export default function MonthlyChart({ data }) {
 
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
-          <XAxis dataKey="month" />
+          <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
           <Legend verticalAlign="top" height={36} />
-          <Bar dataKey="ضغط_الدم" fill="#ff4b4b" name="ضغط الدم" />
-          <Bar dataKey="سكر" fill="#0088FE" name="السكر" />
-          <Bar dataKey="نبض" fill="#FF69B4" name="النبض" />
+          <Bar dataKey="systolic" fill="#ff4b4b" name="ضغط الدم" />
+          <Bar dataKey="sugar" fill="#0088FE" name="السكر" />
+          <Bar dataKey="heartRate" fill="#FF69B4" name="النبض" />
         </BarChart>
       </ResponsiveContainer>
     </div>

@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { addMeasurement } from "../../../firebase/measurements";
+import { auth } from "../../../firebase/firebaseConfig";
 
 export default function useMeasurementLogic() {
   const [measurement, setMeasurement] = useState({
@@ -8,8 +10,8 @@ export default function useMeasurementLogic() {
     diastolic: "",
     sugar: "",
     heartRate: "",
-    weight: "",     
-    notes: "",         
+    weight: "",
+    notes: "",
   });
 
   const [statuses, setStatuses] = useState({
@@ -18,29 +20,24 @@ export default function useMeasurementLogic() {
     heartRate: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setMeasurement((prev) => ({ ...prev, [name]: value }));
-  };
+  // ✅ التحقق من صحة الإدخال
+  const isFormValid =
+    measurement.date &&
+    measurement.time &&
+    measurement.systolic &&
+    measurement.diastolic &&
+    measurement.sugar &&
+    measurement.heartRate;
 
-
-
-
-
+  // ✅ تحديث الحالات بناءً على القيم
   useEffect(() => {
     const newStatuses = {};
 
     // ضغط الدم
     if (measurement.systolic && measurement.diastolic) {
-      if (
-        measurement.systolic > 140 ||
-        measurement.diastolic > 90
-      ) {
+      if (measurement.systolic > 140 || measurement.diastolic > 90) {
         newStatuses.bloodPressure = "مرتفع";
-      } else if (
-        measurement.systolic < 90 ||
-        measurement.diastolic < 60
-      ) {
+      } else if (measurement.systolic < 90 || measurement.diastolic < 60) {
         newStatuses.bloodPressure = "منخفض";
       } else {
         newStatuses.bloodPressure = "طبيعي";
@@ -68,25 +65,43 @@ export default function useMeasurementLogic() {
         newStatuses.heartRate = "طبيعي";
       }
     }
+
     setStatuses(newStatuses);
   }, [measurement]);
 
-
-
-
-
-
-  const handleSave = () => {
-    console.log("تم حفظ البيانات ✅:", measurement);
+  // ✅ تغيير القيم في النموذج
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMeasurement((prev) => ({ ...prev, [name]: value }));
   };
 
+  // ✅ حفظ القياسات في Firestore
+  const handleSave = async () => {
+    if (!isFormValid) {
+      alert("⚠️ من فضلك املأ كل الحقول المطلوبة قبل الحفظ.");
+      return;
+    }
+
+    try {
+      const userId = auth.currentUser?.uid; // 🔹 الـ id الحقيقي للمريض المسجّل دخول
+      if (!userId) {
+        alert("⚠️ لم يتم العثور على المستخدم! من فضلك سجّل الدخول.");
+        return;
+      }
+
+      console.log("📦 Data being sent:", { userId, ...measurement });
+
+      //await addMeasurement(userId, measurement);
+      await addMeasurement(userId, { ...measurement, userId });
 
 
+      alert("✅ تم حفظ القياس بنجاح!");
+    } catch (error) {
+      console.error("❌ Error saving measurement:", error);
+      alert("حدث خطأ أثناء حفظ البيانات!");
+    }
+  };
 
-  const isFormValid =
-    measurement.date && measurement.time && measurement.systolic && measurement.diastolic && measurement.sugar && measurement.heartRate;
-
-  
   return {
     measurement,
     statuses,

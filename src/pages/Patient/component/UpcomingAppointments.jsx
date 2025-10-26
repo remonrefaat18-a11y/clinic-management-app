@@ -5,7 +5,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 
 
-export default function AppoinmentsList(){
+export default function UpcomingAppointments(){
 
 
 

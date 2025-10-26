@@ -11,6 +11,10 @@ import {
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
+
 
 function CustomTabPanel({ children, value, index }) {
   return (
@@ -21,8 +25,78 @@ function CustomTabPanel({ children, value, index }) {
 }
 
 function Register() {
+  const { signup } = useAuth();
+  const navigate = useNavigate();
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => setValue(newValue);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    role: "patient",
+    specialization: "",
+    experience: "",
+    education: "",
+    location: "",
+    about: "",
+    price:"",
+    birthDate:"",
+    gender:"",
+    emergencyNumber:"",
+  });
+
+    const [loading, setLoading] = useState(false);
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("كلمة المرور غير متطابقة");
+      return;
+    }
+    setLoading(true);
+
+    try {
+      const role = value === 0 ? "patient" : "doctor";
+
+    const {
+        email,
+        password,
+        confirmPassword: _confirmPassword, // لا نحتاجه للحفظ
+        role: _r, // نتجاهل نسخة role الموجودة في state لو كانت
+        ...rest
+      } = formData;
+
+      // ممكن ترغب في حفظ كل rest، لكن تأكد من تنظيف القيم الفارغة إذا أردت
+      const extraData = { ...rest };
+      // حذف confirmPassword لو لسه موجود ضمن rest (تفادياً)
+      delete extraData.confirmPassword;
+
+      await signup(email, password, role, extraData);
+
+      if (role === "doctor") {
+        navigate("/doctor/profile");
+      } else {
+        navigate("/patient/profile");
+      }
+    } catch (error) {
+      console.error("Registration failed:", error.message);
+      alert("حدث خطأ أثناء التسجيل: " + error.message);
+    }finally {
+      setLoading(false);
+    }
+  };
+
+
+
 
   return (
     <>
@@ -140,14 +214,15 @@ function Register() {
 
               {/* تبويب المريض */}
               <CustomTabPanel value={value} index={0}>
-                <Box component="form" sx={{ width: "100%", mt: 2 }}>
+                <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", mt: 2 }}>
                   <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
                     {[
-                      { label: "الاسم بالكامل", type: "text", placeholder: "اكتب اسمك بالكامل" },
-                      { label: "البريد الإلكتروني", type: "email", placeholder: "example@email.com" },
-                      { label: "رقم الهاتف", type: "tel", placeholder: "0123456789" },
-                      { label: "تاريخ الميلاد", type: "date" },
+                      { name: "name", label: "الاسم الكامل", type: "text", placeholder: "اكتب اسمك بالكامل" },
+                      { name: "email", label: "البريد الإلكتروني", type: "email", placeholder: "example@email.com" },
+                      { name: "phone", label: "رقم الهاتف", type: "tel", placeholder: "0123456789" },
+                      { name: "birthDate", label: "تاريخ الميلاد", type: "date" },
                       {
+                        name: "gender",
                         label: "النوع",
                         type: "select",
                         options: [
@@ -156,9 +231,9 @@ function Register() {
                           { value: "female", text: "أنثى" },
                         ],
                       },
-                      { label: "رقم الطوارئ", type: "tel", placeholder: "رقم للطوارئ" },
-                      { label: "كلمة المرور", type: "password", placeholder: "********" },
-                      { label: "تأكيد كلمة المرور", type: "password", placeholder: "********" },
+                      { name: "emergencyNumber", label: "رقم الطوارئ", type: "tel", placeholder: "رقم للطوارئ" },
+                      { name: "password", label: "كلمة المرور", type: "password", placeholder: "********" },
+                      { name: "confirmPassword", label: "تأكيد كلمة المرور", type: "password", placeholder: "********" },
                     ].map((field, i) => (
                       <Grid item xs={12} sm={6} key={i}>
                         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -172,6 +247,9 @@ function Register() {
                           </label>
                           {field.type === "select" ? (
                             <select
+                              name={field.name}
+                              value={formData[field.name] || ""}
+                              onChange={handleInputChange}
                               style={{
                                 padding: "10px",
                                 border: "1px solid #ccc",
@@ -188,8 +266,11 @@ function Register() {
                             </select>
                           ) : (
                             <input
+                              name={field.name}
                               type={field.type}
                               placeholder={field.placeholder || ""}
+                              value={formData[field.name] || ""}
+                              onChange={handleInputChange}
                               style={{
                                 padding: "10px",
                                 border: "1px solid #ccc",
@@ -204,33 +285,28 @@ function Register() {
                     ))}
                   </Grid>
 
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      mt: 4,
-                      py: 1.3,
-                      fontSize: "18px",
-                      backgroundColor: "#007bff",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    إنشاء حساب كمريض
+                  <Button type="submit" variant="contained" fullWidth disabled={loading} sx={{ mt: 4, py: 1.3, fontSize: "18px", backgroundColor: "#007bff", borderRadius: "10px" }}>
+                    {loading ? "جاري التسجيل..." : "إنشاء حساب كمريض"}
                   </Button>
                 </Box>
               </CustomTabPanel>
 
               {/* تبويب الطبيب */}
               <CustomTabPanel value={value} index={1}>
-                <Box component="form" sx={{ width: "100%", mt: 2 }}>
+                <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", mt: 2 }}>
                   <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
-                    {[
-                      { label: "الاسم بالكامل", type: "text", placeholder: "اكتب اسمك بالكامل" },
-                      { label: "البريد الإلكتروني", type: "email", placeholder: "example@email.com" },
-                      { label: "رقم الهاتف", type: "tel", placeholder: "0123456789" },
-                      { label: "التخصص", type: "text", placeholder: "اكتب تخصصك الطبي" },
-                      { label: "رقم التسجيل النقابي", type: "text", placeholder: "12345" },
-                      { label: "كلمة المرور", type: "password", placeholder: "********" },
+                    {[             
+                        { name: "name", label: "الاسم الكامل", type: "text", placeholder: "اكتب اسمك بالكامل" },
+                        { name: "email", label: "البريد الإلكتروني", type: "email", placeholder: "example@email.com" },
+                        { name: "phone", label: "رقم الهاتف", type: "tel", placeholder: "0123456789" },
+                        { name: "specialization", label: "التخصص الطبي", type: "text", placeholder: "اكتب تخصصك الطبي" },
+                        { name: "password", label: "كلمة المرور", type: "password", placeholder: "*********" },
+                        { name: "confirmPassword", label: "تأكيد كلمة المرور", type: "password", placeholder: "********" },
+                        { name: "experience", label: "عدد سنوات الخبرة", type: "text", placeholder: "10" },
+                        { name: "price", label: "سعر الكشف", type: "text", placeholder: "100" },
+                        { name: "education", label: "المؤهل الدراسي", type: "text", placeholder: "جامعة القاهرة - كلية الطب" },
+                        { name: "location", label: "العنوان", type: "text", placeholder: "المعادي - القاهرة" },
+                        { name: "about", label: "نبذة عنك", type: "text", placeholder: "أخصائي قلب وأوعية دموية ..." },
                     ].map((field, i) => (
                       <Grid item xs={12} sm={6} key={i}>
                         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -244,6 +320,9 @@ function Register() {
                           </label>
                           <input
                             type={field.type}
+                            name={field.name}
+                            value={formData[field.name] || ""}
+                            onChange={handleInputChange}
                             placeholder={field.placeholder}
                             style={{
                               padding: "10px",
@@ -258,18 +337,8 @@ function Register() {
                     ))}
                   </Grid>
 
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      mt: 4,
-                      py: 1.3,
-                      fontSize: "18px",
-                      backgroundColor: "#007bff",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    إنشاء حساب كطبيب
+                  <Button type="submit" variant="contained" fullWidth disabled={loading} sx={{ mt: 4, py: 1.3, fontSize: "18px", backgroundColor: "#007bff", borderRadius: "10px" }}>
+                    {loading ? "جاري التسجيل..." : "إنشاء حساب كطبيب"}
                   </Button>
                 </Box>
               </CustomTabPanel>
