@@ -2,11 +2,18 @@ import styles from "./DoctorNavbar.module.css";
 import { AiOutlineSetting } from "react-icons/ai";
 import { BiExit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 function DoctorNavbar({ onEditClick, name }) {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
-  const handleExit = () => {
-    navigate("/");
+  const handleExit = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
 
   return (
