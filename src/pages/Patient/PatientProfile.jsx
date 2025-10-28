@@ -1,4 +1,4 @@
-import React from "react";
+
 import CardsSection from "./component/CardsSection";
 import Navbar from "./component/Navbar";
 import Sidebar from "./component/Sidebar";
@@ -11,50 +11,28 @@ import MonthlyChart from "./component/charts/MonthlyChart";
 
 import usePatientMeasurements from "./component/charts/usePatientMeasurements";
 
-
-
-
-
-
-
 export default function PatientProfile() {
 
-
-
- 
-
-
-
-           const measurements = usePatientMeasurements();
-
-  // ⏱️ آخر 7 قياسات (لأسبوعي)
+  /*const measurements = usePatientMeasurements();
   const weeklyData = measurements.slice(-7);
-
-  // 📅 كل القياسات (للشهري)
-  const monthlyData = measurements;
-
-
-
-
-
-
-
-  
+  const monthlyData = measurements;*/
+   const { weeklyData, monthlyData } = usePatientMeasurements();
 
   return (
-    <Box sx={{ backgroundColor: "#f0f9ff", minHeight: "100vh" }}>
-
-
-
+    <Box sx={{
+    backgroundColor: "#f0f9ff",
+    minHeight: "100vh",
+    width: "100%",
+    overflowX: "hidden",   
+    display: "flex",      
+    flexDirection: "column", 
+  }}>
       {/*  Navbar */}
       <Navbar />
       {/* ========== Navbar========== */}
 
-
-
       {/* content*/}
       <Container maxWidth="lg">
-        
         {/*cards */}
         <Box
           sx={{
@@ -71,52 +49,22 @@ export default function PatientProfile() {
         </Box>
         {/*=========cards =========*/}
 
-
-
-
-       
-        {/*charts*/} 
+        {/*charts*/}
         <Grid container spacing={3} sx={{ mt: 4 }}>
-          
           <Grid item xs={12} md={8}>
-            
-            
-              <WeeklyChart data={weeklyData} />
-            
+            <WeeklyChart data={weeklyData} />
 
-           
-              <MonthlyChart data={monthlyData} />
-            
-
+            <MonthlyChart data={monthlyData} />
           </Grid>
           {/*=========charts =========*/}
 
-
- 
           {/* sidebar*/}
           <Grid item xs={12} md={4}>
-            
             <Sidebar />
-            
           </Grid>
           {/* =========sidebar=======*/}
         </Grid>
-
-
-
-
       </Container>
-
-
-
-
-
-
-
-          
-
-
-
     </Box>
   );
 }

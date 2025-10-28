@@ -21,23 +21,26 @@ export default function MeasurementForm({
   onSave,
   isFormValid,
 }) {
-  
   const getStatusColor = (status) => {
     if (!status) return "#999";
     if (status === "طبيعي") return "green";
     return "red";
   };
 
-
- 
   const navigate = useNavigate();
 
   return (
     <Container maxWidth="md" sx={{ mt: 4, mb: 6 }}>
-
-
       {/* التاريخ والوقت */}
-      <Box sx={{ backgroundColor: "white", p: 3, mb: 3, borderRadius: 3, boxShadow: 1 }}>
+      <Box
+        sx={{
+          backgroundColor: "white",
+          p: 3,
+          mb: 3,
+          borderRadius: 3,
+          boxShadow: 1,
+        }}
+      >
         <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 600 }}>
           <CalendarMonthIcon sx={{ mr: 1 }} /> التاريخ والوقت
         </Typography>
@@ -67,15 +70,33 @@ export default function MeasurementForm({
         </Grid>
       </Box>
 
-
       {/* ضغط الدم */}
-      <Box sx={{ backgroundColor: "white", p: 3, mb: 3, borderRadius: 3, boxShadow: 1 }}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <Box
+        sx={{
+          backgroundColor: "white",
+          p: 3,
+          mb: 3,
+          borderRadius: 3,
+          boxShadow: 1,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Typography sx={{ mb: 2, fontWeight: 600, color: "#d32f2f" }}>
             <ShowChartIcon sx={{ color: "red", mr: 1 }} />
             ضغط الدم
           </Typography>
-          <Typography sx={{ fontWeight: 600, color: getStatusColor(statuses.bloodPressure) }}>
+          <Typography
+            sx={{
+              fontWeight: 600,
+              color: getStatusColor(statuses.bloodPressure),
+            }}
+          >
             {statuses.bloodPressure || "—"}
           </Typography>
         </Box>
@@ -108,15 +129,30 @@ export default function MeasurementForm({
         </Grid>
       </Box>
 
-
       {/* السكر */}
-      <Box sx={{ backgroundColor: "white", p: 3, mb: 3, borderRadius: 3, boxShadow: 1 }}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <Box
+        sx={{
+          backgroundColor: "white",
+          p: 3,
+          mb: 3,
+          borderRadius: 3,
+          boxShadow: 1,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Typography sx={{ mb: 2, fontWeight: 600, color: "#0288d1" }}>
             <WaterDropOutlinedIcon sx={{ color: "#0288d1", mr: 1 }} />
             السكر
           </Typography>
-          <Typography sx={{ fontWeight: 600, color: getStatusColor(statuses.sugar) }}>
+          <Typography
+            sx={{ fontWeight: 600, color: getStatusColor(statuses.sugar) }}
+          >
             {statuses.sugar || "—"}
           </Typography>
         </Box>
@@ -134,13 +170,29 @@ export default function MeasurementForm({
       </Box>
 
       {/* النبض */}
-      <Box sx={{ backgroundColor: "white", p: 3, mb: 3, borderRadius: 3, boxShadow: 1 }}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <Box
+        sx={{
+          backgroundColor: "white",
+          p: 3,
+          mb: 3,
+          borderRadius: 3,
+          boxShadow: 1,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Typography sx={{ mb: 2, fontWeight: 600, color: "#ec407a" }}>
             <FavoriteBorderOutlinedIcon sx={{ color: "#ec407a", mr: 1 }} />
             النبض
           </Typography>
-          <Typography sx={{ fontWeight: 600, color: getStatusColor(statuses.heartRate) }}>
+          <Typography
+            sx={{ fontWeight: 600, color: getStatusColor(statuses.heartRate) }}
+          >
             {statuses.heartRate || "—"}
           </Typography>
         </Box>
@@ -157,72 +209,53 @@ export default function MeasurementForm({
         </Typography>
       </Box>
 
+      {/* قياسات إضافية (اختيارية) */}
+      <Box
+        sx={{
+          backgroundColor: "white",
+          p: 3,
+          mb: 3,
+          borderRadius: 3,
+          boxShadow: 1,
+        }}
+      >
+        <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 600 }}>
+          قياسات إضافية (اختيارية)
+        </Typography>
 
+        <TextField
+          name="weight"
+          fullWidth
+          label="الوزن (كيلوجرام)"
+          value={values.weight}
+          onChange={onChange}
+        />
 
-
-
-
-
-       {/* قياسات إضافية (اختيارية) */}
-      <Box sx={{ backgroundColor: "white", p: 3, mb: 3, borderRadius: 3, boxShadow: 1 }}>
-
-      <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 600 }}>
-        قياسات إضافية (اختيارية)
-      </Typography>
-
- 
-      <TextField
-        name="weight"
-        fullWidth
-        label="الوزن (كيلوجرام)"
-        value={values.weight}
-        onChange={onChange}
-      />
-    
-    
-    
-      <TextField
-        name="notes"
-        fullWidth
-        multiline
-        rows={3}
-        label="ملاحظات"
-        placeholder="أي ملاحظات"
-        value={values.notes}
-        onChange={onChange}
-        sx={{marginTop:"15px"}}
-      />
-    
-  
-</Box>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <TextField
+          name="notes"
+          fullWidth
+          multiline
+          rows={3}
+          label="ملاحظات"
+          placeholder="أي ملاحظات"
+          value={values.notes}
+          onChange={onChange}
+          sx={{ marginTop: "15px" }}
+        />
+      </Box>
 
       {/* الأزرار */}
       <Stack direction="row" justifyContent="flex-end" spacing={2}>
         <Button
-        variant="outline"
-        onClick={() => navigate("/patient/profile")}
-        sx={{
-                borderColor: "#bdb2b2ff",
-                "&:focus": {
-      outline: "none",
-      boxShadow: "none",
-    },
-              }}
+          variant="outline"
+          onClick={() => navigate("/patient/profile")}
+          sx={{
+            borderColor: "#bdb2b2ff",
+            "&:focus": {
+              outline: "none",
+              boxShadow: "none",
+            },
+          }}
         >
           الغاء
         </Button>
@@ -230,26 +263,22 @@ export default function MeasurementForm({
           variant="contained"
           disabled={!isFormValid}
           onClick={() => {
-              onSave(); 
-              navigate("/patient/profile"); 
+            onSave();
+            navigate("/patient/profile");
           }}
-
-          sx={{ borderRadius: "8px", gap: "8px" ,
+          sx={{
+            borderRadius: "8px",
+            gap: "8px",
 
             "&:focus": {
-      outline: "none",
-      boxShadow: "none",
-    },
+              outline: "none",
+              boxShadow: "none",
+            },
           }}
         >
           <SaveAsIcon /> حفظ القياسات
         </Button>
-        
-        
       </Stack>
-
-
-
     </Container>
   );
 }

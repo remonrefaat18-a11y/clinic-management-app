@@ -20,7 +20,6 @@ export default function useMeasurementLogic() {
     heartRate: "",
   });
 
-  // ✅ التحقق من صحة الإدخال
   const isFormValid =
     measurement.date &&
     measurement.time &&
@@ -29,7 +28,6 @@ export default function useMeasurementLogic() {
     measurement.sugar &&
     measurement.heartRate;
 
-  // ✅ تحديث الحالات بناءً على القيم
   useEffect(() => {
     const newStatuses = {};
 
@@ -69,13 +67,11 @@ export default function useMeasurementLogic() {
     setStatuses(newStatuses);
   }, [measurement]);
 
-  // ✅ تغيير القيم في النموذج
   const handleChange = (e) => {
     const { name, value } = e.target;
     setMeasurement((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ حفظ القياسات في Firestore
   const handleSave = async () => {
     if (!isFormValid) {
       alert("⚠️ من فضلك املأ كل الحقول المطلوبة قبل الحفظ.");
@@ -83,7 +79,7 @@ export default function useMeasurementLogic() {
     }
 
     try {
-      const userId = auth.currentUser?.uid; // 🔹 الـ id الحقيقي للمريض المسجّل دخول
+      const userId = auth.currentUser?.uid;
       if (!userId) {
         alert("⚠️ لم يتم العثور على المستخدم! من فضلك سجّل الدخول.");
         return;
@@ -91,9 +87,7 @@ export default function useMeasurementLogic() {
 
       console.log("📦 Data being sent:", { userId, ...measurement });
 
-      //await addMeasurement(userId, measurement);
       await addMeasurement(userId, { ...measurement, userId });
-
 
       alert("✅ تم حفظ القياس بنجاح!");
     } catch (error) {

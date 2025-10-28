@@ -12,10 +12,7 @@ import { useEffect, useState } from "react";
 import { auth, db } from "../../../firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 
-
-
 import { signOut } from "firebase/auth";
-
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -49,22 +46,15 @@ export default function Navbar() {
     return () => unsubscribe();
   }, []);
 
-
-
-
-
-     const handleLogout = async () => {
-  try {
-    await signOut(auth); 
-    console.log("✅ بعد الخروج:", auth.currentUser); 
-    navigate("/login"); 
-  } catch (error) {
-    console.error("❌ خطأ أثناء تسجيل الخروج:", error);
-  }
-};
-
-
-  
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("✅ بعد الخروج:", auth.currentUser);
+      navigate("/login");
+    } catch (error) {
+      console.error("❌ خطأ أثناء تسجيل الخروج:", error);
+    }
+  };
 
   return (
     <Box
