@@ -1,3 +1,7 @@
-export default function EditDoctor() {
-  return <div>Doctor Profile Page</div>;
+export default function EditDoctor(){
+    return(
+        <>
+        <div>hi vaiat</div>
+        </>
+    );
 }
