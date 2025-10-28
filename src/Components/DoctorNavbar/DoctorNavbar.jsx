@@ -17,7 +17,7 @@ function DoctorNavbar({ onEditClick, name }) {
   };
 
   return (
-    <div className={`${styles.doctor_navbar} shadow-sm`}>
+    <div className={`${styles.doctor_navbar}`}>
       <div className={styles.doctor_name}>
         <span>د</span>
 
