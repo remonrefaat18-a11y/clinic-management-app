@@ -24,7 +24,6 @@ export default function Navbar() {
       const user = auth.currentUser;
       if (user) {
         try {
-          // بنجيب بيانات المريض من Firestore000
           const ref = doc(db, "users", user.uid);
           const snap = await getDoc(ref);
           if (snap.exists()) {
@@ -38,7 +37,6 @@ export default function Navbar() {
       }
     };
 
-    // نعمل مراقبة لتغيير المستخدم
     const unsubscribe = auth.onAuthStateChanged(() => {
       fetchPatientName();
     });
