@@ -1,5 +1,4 @@
-@tailwind base;
-@tailwind components;
+
 :root {
   --color-bg-doctor-profile: #f9fafc;
   --color-navbar-doctor: #ffffff;
@@ -25,4 +24,4 @@ body {
   background-color: var(--color-bg-doctor-profile);
   min-height: 100dvh;
 }
-@tailwind utilities;
+
