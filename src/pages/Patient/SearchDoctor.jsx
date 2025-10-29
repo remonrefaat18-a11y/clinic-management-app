@@ -6,22 +6,19 @@ import DoctorCard from "../../components/doctorCard";
 export default function SearchDoctor() {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Filters
   const [searchTerm, setSearchTerm] = useState("");
   const [specialty, setSpecialty] = useState("جميع التخصصات");
   const [region, setRegion] = useState("جميع المناطق");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
 
-  // Fetch
+  // Fetch Doctors Data
   useEffect(() => {
     const fetchDoctors = async () => {
       setLoading(true);
       try {
         const q = query(collection(db, "users"), where("role", "==", "doctor"));
         const snapshot = await getDocs(q);
-
         const list = snapshot.docs.map((doc) => {
           const data = doc.data();
           return {
@@ -32,7 +29,6 @@ export default function SearchDoctor() {
             price: Number(data.price) || 0,
           };
         });
-
         setDoctors(list);
       } catch (error) {
         console.error("Error fetching doctors:", error);
@@ -44,7 +40,7 @@ export default function SearchDoctor() {
     fetchDoctors();
   }, []);
 
-  // Filter
+  // Filter Doctors
   const filteredDoctors = doctors.filter((doc) => {
     const term = searchTerm.toLowerCase();
 
@@ -55,9 +51,14 @@ export default function SearchDoctor() {
       doc.location.toLowerCase().includes(term);
 
     const matchSpecialty =
-      specialty === "جميع التخصصات" || doc.specialization.includes(specialty) || specialty.includes(doc.specialization);
+      specialty === "جميع التخصصات" ||
+      doc.specialization.includes(specialty) ||
+      specialty.includes(doc.specialization);
 
-    const matchRegion = region === "جميع المناطق" || doc.location.includes(region) || region.includes(doc.location);
+    const matchRegion =
+      region === "جميع المناطق" ||
+      doc.location.includes(region) ||
+      region.includes(doc.location);
 
     const matchPrice =
       (!minPrice || doc.price >= Number(minPrice)) &&
@@ -67,16 +68,25 @@ export default function SearchDoctor() {
   });
 
   return (
-    <div className="min-h-screen font-[sans-serif]">
-      {/* Navigation */}
+    <div
+      className="min-h-screen font-[sans-serif]"
+      style={{
+        backgroundColor: "#f0f9ff",
+        color: "#213547",
+      }}
+    >
+      {/* Nav */}
       <nav className="bg-white shadow-sm flex items-center gap-3 text-right p-3 mb-6">
-        <button className="px-4 py-2 rounded-xl hover:bg-gray-100 transition">
+        <button
+          className="px-4 py-2 rounded-xl transition-colors border border-transparent hover:bg-gray-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-300"
+          style={{ cursor: "pointer" }}
+        >
           ← العودة
         </button>
         <h3 className="text-2xl font-semibold text-gray-800">البحث عن طبيب</h3>
       </nav>
 
-      {/* Filter Box */}
+      {/* Filter section */}
       <section className="bg-white rounded-2xl shadow-sm p-6 m-6">
         <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-800">
           🔍 البحث والتصفية
@@ -91,7 +101,7 @@ export default function SearchDoctor() {
               placeholder="اسم الطبيب أو التخصص أو المنطقة"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             />
           </div>
 
@@ -101,7 +111,7 @@ export default function SearchDoctor() {
             <select
               value={specialty}
               onChange={(e) => setSpecialty(e.target.value)}
-              className="w-full border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition"
             >
               <option>جميع التخصصات</option>
               <option>اخصائي قلب و اوعية دموية</option>
@@ -117,7 +127,7 @@ export default function SearchDoctor() {
             <select
               value={region}
               onChange={(e) => setRegion(e.target.value)}
-              className="w-full border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition"
             >
               <option>جميع المناطق</option>
               <option>القاهرة</option>
@@ -135,14 +145,14 @@ export default function SearchDoctor() {
                 placeholder="من"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className="w-1/2 border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-1/2 border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               />
               <input
                 type="number"
                 placeholder="إلى"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="w-1/2 border border-gray-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-1/2 border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               />
             </div>
           </div>
@@ -159,14 +169,15 @@ export default function SearchDoctor() {
               setMinPrice("");
               setMaxPrice("");
             }}
-            className="border border-gray-400 text-gray-700 px-4 py-2 rounded-xl hover:bg-gray-100 transition"
+            className="border border-gray-400 text-gray-700 px-4 py-2 rounded-xl hover:bg-gray-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 transition"
+            style={{ cursor: "pointer" }}
           >
             إعادة تعيين الفلاتر
           </button>
         </div>
       </section>
 
-      {/* Doctor List */}
+      {/* Doctors List */}
       <section className="bg-white rounded-2xl shadow-sm p-6 m-6">
         <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-800">
           🩺 قائمة الأطباء
@@ -181,7 +192,7 @@ export default function SearchDoctor() {
             filteredDoctors.map((doc) => (
               <DoctorCard
                 key={doc.id}
-                id={doc.id} 
+                id={doc.id}
                 name={doc.name}
                 specialization={doc.specialization}
                 location={doc.location}

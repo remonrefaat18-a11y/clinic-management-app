@@ -20,7 +20,7 @@ export default function DoctorAppointment() {
 
   const { currentUser, userData } = useAuth();
 
-  // Fetch doctor data by ID
+  // Fetch doctor data from Firestore
   useEffect(() => {
     const fetchDoctor = async () => {
       if (!id) return;
@@ -41,7 +41,7 @@ export default function DoctorAppointment() {
     fetchDoctor();
   }, [id]);
 
-  // Booking handler with Firestore write
+  // Booking
   const handleBooking = async () => {
     if (!selectedDate || !selectedTime) {
       setConfirmation("اختيار التاريخ والوقت أولاً");
@@ -56,7 +56,6 @@ export default function DoctorAppointment() {
       setLoading(true);
       const formattedDate = selectedDate.toLocaleDateString("ar-EG");
 
-      // Add appointment document to Firestore
       await addDoc(collection(db, "appointments"), {
         userName: userData?.name || "مستخدم غير معروف",
         userEmail: currentUser?.email || "غير متوفر",
@@ -87,8 +86,8 @@ export default function DoctorAppointment() {
   }
 
   return (
-    <div className="font-[sans-serif]">
-      {/* Navigation */}
+    <div className="font-[sans-serif] min-h-screen bg-[#f0f9ff]">
+      {/* Nav */}
       <nav className="bg-white shadow-sm flex items-center gap-3 text-right p-3 mb-6">
         <button
           className="px-4 py-2 rounded-xl hover:bg-gray-100 transition"
@@ -99,11 +98,9 @@ export default function DoctorAppointment() {
         <h3 className="text-2xl font-semibold text-gray-800">د. {doctorData.name}</h3>
       </nav>
 
-      {/* Main Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto p-4">
-        {/* Left Section */}
+        {/* Left sections: doctor details */}
         <div className="lg:col-span-2">
-          {/* Doctor Card */}
           <div className="bg-white p-6 rounded-2xl shadow-md">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
               <div className="flex-shrink-0 ml-4">
@@ -113,17 +110,19 @@ export default function DoctorAppointment() {
                 <h2 className="text-2xl font-bold mb-1">د. {doctorData.name}</h2>
                 <p className="text-blue-600 font-medium">{doctorData.specialization}</p>
                 <p className="text-gray-600 mt-2">{doctorData.location}</p>
-                <p className="text-gray-600">📞 {doctorData.phone}</p>
-                <p className="text-gray-600">✉️ {doctorData.email}</p>
+                {doctorData.phone && <p className="text-gray-600">📞 {doctorData.phone}</p>}
+                {doctorData.email && <p className="text-gray-600">✉️ {doctorData.email}</p>}
               </div>
               <div className="mt-4 md:mt-0 text-center md:text-left">
-                <p className="text-2xl font-semibold text-gray-800">{doctorData.price} جنيه</p>
+                <p className="text-2xl font-semibold text-gray-800">
+                  {doctorData.price || 0} جنيه
+                </p>
                 <p className="text-gray-500 text-sm">كشف</p>
               </div>
             </div>
           </div>
 
-          {/* Tabs */}
+          {/* Active tab */}
           <div className="flex bg-gray-100 rounded-3xl mt-6 text-gray-700 font-small overflow-hidden">
             <button
               className={`flex-1 py-3 ${activeTab === "نبذة" ? "bg-white border-b-2 border-blue-600" : "hover:bg-white"}`}
@@ -131,7 +130,6 @@ export default function DoctorAppointment() {
             >
               نبذة
             </button>
-
             <button
               className={`flex-1 py-3 ${activeTab === "العنوان" ? "bg-white border-b-2 border-blue-600" : "hover:bg-white"}`}
               onClick={() => setActiveTab("العنوان")}
@@ -140,58 +138,54 @@ export default function DoctorAppointment() {
             </button>
           </div>
 
-          {/* Tab Content */}
+          {/* Tab Contents */}
           <div className="bg-white p-6 rounded-2xl shadow-md mt-4">
             {activeTab === "نبذة" && (
-              <div>
+              <div dir="rtl">
                 <h3 className="text-xl font-semibold mb-3 text-gray-800">نبذة عن الطبيب</h3>
 
-                <div className="mb-5">
-                  <h4 className="text-lg font-semibold text-gray-700 mb-2">🎓 التعليم والمؤهلات</h4>
-                  <p className="text-gray-600 mb-1">جامعة القاهرة - كلية الطب</p>
-                  <p className="text-gray-600">دكتوراه في قلب وأوعية دموية</p>
-                </div>
+                {doctorData.education?.length > 0 && (
+                  <div className="mb-5">
+                    <h4 className="text-lg font-semibold text-gray-700 mb-2">🎓 التعليم والمؤهلات</h4>
+                    {doctorData.education}
+                  </div>
+                )}
 
-                <div className="mb-5">
-                  <h4 className="text-lg font-semibold text-gray-700 mb-2">🩺 الخبرة</h4>
-                  <p className="text-gray-600">15 سنة خبرة في مجال قلب وأوعية دموية</p>
-                  <p className="text-gray-600">عضو الجمعية المصرية لأطباء القلب</p>
-                </div>
+                {doctorData.experience?.length > 0 && (
+                  <div className="mb-5">
+                    <h4 className="text-lg font-semibold text-gray-700 mb-2">🩺 الخبرة</h4>
+                    <p> {doctorData.experience} سنوات من الخبرة</p>
+                  </div>
+                )}
               </div>
             )}
 
             {activeTab === "العنوان" && (
-              <div>
+              <div dir="rtl">
                 <h3 className="text-xl font-semibold mb-4 text-gray-800">العنوان ومعلومات الاتصال</h3>
 
                 <div className="mb-5">
                   <h4 className="text-lg font-semibold text-gray-700 mb-2">🏥 العنوان</h4>
-                  <p className="text-gray-600">المعادي، القاهرة</p>
-                  <p className="text-gray-600">شارع التسعين الشمالي، مول سيتي سنتر، الدور الثالث</p>
-                </div>
-
-                <div className="mb-5">
-                  <h4 className="text-lg font-semibold text-gray-700 mb-2">🕒 أوقات العمل</h4>
-                  <p className="text-gray-600">السبت - الخميس: 9:00 ص - 6:00 م</p>
-                  <p className="text-gray-600">الجمعة: 2:00 م - 8:00 م</p>
+                  <p className="text-gray-600">{doctorData.location}</p>
+                  {doctorData.addressDetails && (
+                    <p className="text-gray-600">{doctorData.addressDetails}</p>
+                  )}
                 </div>
 
                 <div>
                   <h4 className="text-lg font-semibold text-gray-700 mb-2">📞 معلومات الاتصال</h4>
-                  <p className="text-gray-600">📱 01234567890</p>
-                  <p className="text-gray-600">✉️ doctor@hospital.com</p>
-                  <p className="text-blue-600 hover:underline cursor-pointer">🌐 www.doctor-website.com</p>
+                  {doctorData.phone && <p className="text-gray-600">📱 {doctorData.phone}</p>}
+                  {doctorData.email && <p className="text-gray-600">✉️ {doctorData.email}</p>}
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* Right Section */}
+        {/* Right: Booking & Services section */}
         <div className="bg-white p-6 rounded-2xl shadow-md h-fit">
           <h3 className="text-xl text-center font-semibold mb-4 text-gray-800">حجز موعد سريع</h3>
 
-          {/* Date Picker */}
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label="اختر التاريخ"
@@ -203,7 +197,6 @@ export default function DoctorAppointment() {
             />
           </LocalizationProvider>
 
-          {/* Times */}
           <p className="text-gray-600 mb-3 text-left">:المواعيد المتاحة اليوم</p>
           <div className="flex flex-wrap gap-3 mb-6 justify-start">
             {["10:00 ص", "2:30 م", "5:00 م"].map((time) => (
@@ -221,14 +214,12 @@ export default function DoctorAppointment() {
             ))}
           </div>
 
-          {/* الخدمات */}
+          {/* Services */}
           <div className="mt-6 pt-4 text-gray-700">
             <h4 className="text-lg font-semibold mb-2">الخدمات</h4>
-            {[
-              { label: "كشف أول", price: 300 },
+            {[{ label: "كشف أول", price: 300 },
               { label: "كشف متابعة", price: 250 },
-              { label: "استشارة هاتفية", price: 150 },
-            ].map((option) => (
+              { label: "استشارة هاتفية", price: 150 }].map((option) => (
               <label
                 key={option.label}
                 className={`flex justify-between items-center border rounded-xl p-2 mb-2 cursor-pointer transition ${
@@ -252,8 +243,8 @@ export default function DoctorAppointment() {
               </label>
             ))}
           </div>
-
-          {/* Booking Button */}
+          
+          {/* Book Button */}
           <button
             onClick={handleBooking}
             disabled={loading}
@@ -266,7 +257,6 @@ export default function DoctorAppointment() {
             <span>📅</span> {loading ? "جارٍ الحجز..." : "حجز موعد"}
           </button>
 
-          {/* Confirmation Message */}
           {confirmation && (
             <Alert
               severity={
@@ -282,7 +272,7 @@ export default function DoctorAppointment() {
             </Alert>
           )}
 
-          {/* التأمين */}
+          {/* Life Insurance */}
           <div className="mt-6 border-t pt-4 text-gray-700">
             <h4 className="text-lg font-semibold mb-2">التأمين المقبول</h4>
             <ul className="space-y-1">
