@@ -1,0 +1,52 @@
+.allcard_contaier {
+  background-color: white;
+  border: 0.0625rem solid var(--border-card-color);
+  display: flex;
+  padding: 0.625rem;
+  justify-content: space-between;
+  font-size: 0.9375rem;
+  border-radius: 0.625rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+}
+
+.allcard_contaier p {
+  display: flex;
+  gap: 0.3125rem;
+  color: var(--text-sec-color);
+}
+
+.left_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3125rem;
+}
+
+.right_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3125rem;
+}
+
+.right_info a {
+  font-size: 0.9375rem;
+  border: 0.125rem solid var(--border-card-color);
+  padding: 0.625rem;
+  border-radius: 0.625rem;
+}
+
+.right_info a:hover {
+  background-color: var(--border-card-color);
+}
+
+.right_info p {
+  font-size: 0.9375rem;
+  border-radius: 0.625rem;
+  padding: 0.3125rem 0.625rem;
+  color: white;
+}

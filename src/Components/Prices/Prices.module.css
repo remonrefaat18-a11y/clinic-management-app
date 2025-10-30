@@ -1,0 +1,31 @@
+.basic_contaier {
+  background-color: white;
+  border: 0.0625rem solid var(--border-card-color);
+  border-radius: 0.625rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.basic_contaier h2 {
+  display: flex;
+  gap: 0.3125rem;
+  align-items: center;
+}
+
+.form_contaier {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13.125rem, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .basic_contaier {
+    padding: 0.9375rem;
+  }
+
+  .form_contaier {
+    grid-template-columns: 1fr;
+  }
+}

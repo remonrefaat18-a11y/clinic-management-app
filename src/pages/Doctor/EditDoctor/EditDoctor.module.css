@@ -1,0 +1,78 @@
+.editDoctor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(21.25rem, 1fr));
+  gap: 1.25rem;
+  margin: 2.5rem 21.25rem 2.5rem 21.25rem;
+}
+
+.editDoctor > * {
+  grid-column: 1 / -1;
+}
+
+.btn {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cancel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 0.0625rem solid var(--border-card-color);
+  padding: 0.46875rem 0.9375rem;
+  border-radius: 0.625rem;
+  width: 20%;
+}
+
+.cancel:hover {
+  background-color: var(--border-card-color);
+  transition: all 0.2s;
+}
+
+.save {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #155dfd;
+  color: white;
+  gap: 0.3125rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 0.0625rem solid var(--border-card-color);
+  padding: 0.46875rem 0.9375rem;
+  border-radius: 0.625rem;
+  width: 30%;
+}
+
+.save:hover {
+  background-color: blue;
+  transition: all 0.2s;
+}
+
+@media (max-width: 1024px) {
+  .editDoctor {
+    margin: 1.25rem;
+  }
+  .save {
+    width: 60%;
+  }
+  .cancel {
+    width: 30%;
+  }
+  .btn {
+    display: flex;
+    gap: 0.625rem;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1286px) {
+  .editDoctor {
+    margin: 2.5rem 8.75rem 2.5rem 8.75rem;
+  }
+}

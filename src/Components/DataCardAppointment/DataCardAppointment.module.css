@@ -1,0 +1,55 @@
+.today_info_container {
+  background-color: white;
+  border: 0.0625rem solid var(--border-card-color);
+  border-radius: 0.625rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.types {
+  font-size: 1.25rem;
+  color: var(--text--color);
+}
+
+.container_card {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.0625rem solid var(--border-card-color);
+  padding: 0.625rem;
+  align-items: center;
+}
+
+.container_card p:first-child {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.container_card .today_info p:last-child {
+  font-size: 0.9375rem;
+  color: var(--text-sec-color);
+}
+
+.today_info_container p:last-child {
+  font-size: 0.9375rem;
+  color: var(--time-color);
+}
+
+.see_all {
+  padding: 0.3125rem 0.625rem;
+  border: 0.0625rem solid var(--border-card-color);
+  border-radius: 0.625rem;
+  width: 50%;
+  align-self: center;
+  margin-top: 0.625rem;
+  font-size: 0.9375rem;
+}
+
+.see_all:hover {
+  background-color: var(--border-card-color);
+  cursor: pointer;
+}
+
+.names {
+  color: var(--text--color);
+}

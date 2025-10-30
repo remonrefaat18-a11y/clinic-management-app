@@ -1,0 +1,9 @@
+.container_patient {
+  background-color: white;
+  border: 0.0625rem solid var(--border-card-color);
+  border-radius: 0.625rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}

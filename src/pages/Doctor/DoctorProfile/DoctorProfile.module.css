@@ -1,0 +1,16 @@
+.doctorProfile {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11.71875rem, 1fr));
+  gap: 0.78125rem;
+  margin: 1.5625rem 3.90625rem;
+}
+
+.doctorProfile > * {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1024px) {
+  .doctorProfile {
+    margin: 0.78125rem;
+  }
+}

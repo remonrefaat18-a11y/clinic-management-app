@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+h2 {
+  display: flex;
+  gap: 0.3125rem;
+  font-size: 0.9375rem;
+}
+
+h2 span {
+  color: red;
+}
+
+.cards_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
+  gap: 0.9375rem;
+}

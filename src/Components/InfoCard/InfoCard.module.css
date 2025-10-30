@@ -1,0 +1,35 @@
+.alert_card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25em;
+  background-color: #ffffff;
+  font-weight: 500;
+  height: 9.375rem;
+  border-radius: 0.9375rem;
+  border: 0.0625rem solid var(--border-card-color);
+}
+
+.type_top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5625rem;
+}
+
+.info_card {
+  font-size: 0.9375rem;
+}
+
+.info_card p:first-child {
+  font-weight: bold;
+  font-size: 1.5625rem;
+}
+
+.info_card p:last-child {
+  color: #6c757d;
+}
+
+.num {
+  color: black;
+}

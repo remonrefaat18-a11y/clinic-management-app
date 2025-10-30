@@ -1,0 +1,114 @@
+/* sm */
+@media (min-width: 576px) {
+}
+/* md */
+@media (min-width: 768px) {
+}
+/* lg */
+@media (min-width: 992px) {
+}
+
+.doctor_navbar {
+  width: 100%;
+  height: auto;
+  background-color: var(--color-navbar-doctor);
+  border-bottom: 0.0625rem solid var(--border-card-color);
+  display: flex;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.25rem 5rem;
+}
+
+@media (max-width: 768px) {
+  .doctor_navbar {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.25rem 1.25rem;
+  }
+}
+
+.doctor_name {
+  display: flex;
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .doctor_name {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.doctor_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3125rem;
+}
+
+.doctor_name h1 {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.doctor_name h2 {
+  font-size: 0.9375rem;
+  opacity: 0.6;
+}
+
+.doctor_name span {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #ebeff6;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9375rem;
+  font-weight: 400;
+}
+
+.btns {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+}
+
+.profile_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 0.0625rem solid var(--border-card-color);
+  padding: 0.46875rem 0.9375rem;
+  border-radius: 0.625rem;
+  width: 120%;
+  gap: 0.3125rem;
+}
+
+.profile_btn:hover {
+  background-color: var(--border-card-color);
+  transition: all 0.2s;
+}
+
+.exit_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3125rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 0.0625rem solid var(--border-card-color);
+  padding: 0.46875rem 0.9375rem;
+  border-radius: 0.625rem;
+  width: 40%;
+}
+
+.exit_btn:hover {
+  background-color: var(--border-card-color);
+  transition: all 0.2s;
+}

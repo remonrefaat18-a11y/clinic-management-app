@@ -1,0 +1,41 @@
+.container {
+  width: 100%;
+  height: auto;
+  background-color: var(--color-navbar-doctor);
+  border-bottom: 0.0625rem solid var(--border-card-color);
+  display: flex;
+  gap: 2.5rem;
+  padding: 1.25rem 5rem;
+  font-size: 0.9375rem;
+  align-items: center;
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.3125rem 0.625rem;
+}
+
+.back:hover {
+  border-radius: 0.625rem;
+  background-color: var(--border-card-color);
+}
+
+.person {
+  font-size: 1.875rem;
+  color: var(--time-color);
+}
+
+.container h1 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0.625rem 0.625rem;
+    gap: 1.25rem;
+  }
+}
