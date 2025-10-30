@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { doc, getDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useParams } from "react-router-dom";
-import { auth, db } from "../../firebase/firebaseConfig";
+import { db } from "../../firebase/firebaseConfig";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
