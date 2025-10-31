@@ -12,6 +12,8 @@ import PatientProfile from "../pages/Patient/PatientProfile";
 import AddMeasurement from "../pages/Patient/AddMeasurement";
 import SearchDoctor from "../pages/Patient/SearchDoctor";
 import LandingPage from "../pages/Auth/LandingPage";
+import AddAppointment from "../pages/Patient/AddAppointment";
+
 
 import ProtectedRoute from "../components/ProtectedRoute"; // ✅ استيراد مكون الحماية
 
@@ -66,6 +68,14 @@ export default function AppRoutes() {
             </ProtectedRoute>
           }
         />
+         <Route
+            path="/patient/doctors/Appointment/:id"
+            element={
+                <ProtectedRoute allowedRole="patient">
+                <AddAppointment />
+                </ProtectedRoute>
+            }
+            />
 
         {/* Not Found */}
         <Route
@@ -77,6 +87,4 @@ export default function AppRoutes() {
       </Routes>
     </BrowserRouter>
   );
-
 }
-

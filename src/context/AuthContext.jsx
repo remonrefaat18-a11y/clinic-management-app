@@ -71,8 +71,8 @@ export const AuthProvider=({children})=>{
     );
 
 
-    };
 
+    };
 
 
 

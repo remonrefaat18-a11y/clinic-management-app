@@ -1,3 +1,7 @@
+// export default function LandingPage(){
+//   return <div>Login Page</div>;
+// }
+
 import { Link } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BarChartIcon from "@mui/icons-material/BarChart";
