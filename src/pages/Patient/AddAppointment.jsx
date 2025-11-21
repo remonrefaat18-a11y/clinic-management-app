@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
-import { doc, getDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase/firebaseConfig";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -41,7 +50,7 @@ export default function DoctorAppointment() {
     fetchDoctor();
   }, [id]);
 
-  // Booking
+  // Booking with conflict check
   const handleBooking = async () => {
     if (!selectedDate || !selectedTime) {
       setConfirmation("اختيار التاريخ والوقت أولاً");
@@ -54,8 +63,26 @@ export default function DoctorAppointment() {
 
     try {
       setLoading(true);
+
       const formattedDate = selectedDate.toLocaleDateString("ar-EG");
 
+      // 🔥 Check if appointment already exists
+      const q = query(
+        collection(db, "appointments"),
+        where("doctorId", "==", id),
+        where("date", "==", formattedDate),
+        where("time", "==", selectedTime)
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        setConfirmation("⚠ هذا المعاد محجوز بالفعل. اختر معادًا آخر.");
+        setLoading(false);
+        return;
+      }
+
+      // 🔵 Add appointment
       await addDoc(collection(db, "appointments"), {
         userName: userData?.name || "مستخدم غير معروف",
         userEmail: currentUser?.email || "غير متوفر",
@@ -69,7 +96,9 @@ export default function DoctorAppointment() {
         createdAt: serverTimestamp(),
       });
 
-      setConfirmation(`تم حجز ${selectedService} يوم ${formattedDate} الساعة ${selectedTime}`);
+      setConfirmation(
+        `تم حجز ${selectedService} يوم ${formattedDate} الساعة ${selectedTime}`
+      );
       setSelectedDate(null);
       setSelectedTime(null);
       setSelectedService("");
@@ -82,7 +111,11 @@ export default function DoctorAppointment() {
   };
 
   if (!doctorData) {
-    return <div className="text-center py-20 text-gray-600">جاري تحميل بيانات الطبيب...</div>;
+    return (
+      <div className="text-center py-20 text-gray-600">
+        جاري تحميل بيانات الطبيب...
+      </div>
+    );
   }
 
   return (
@@ -95,23 +128,31 @@ export default function DoctorAppointment() {
         >
           ← العودة
         </button>
-        <h3 className="text-2xl font-semibold text-gray-800">د. {doctorData.name}</h3>
+        <h3 className="text-2xl font-semibold text-gray-800">
+          د. {doctorData.name}
+        </h3>
       </nav>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto p-4">
-        {/* Left sections: doctor details */}
+        {/* Left sections */}
         <div className="lg:col-span-2">
           <div className="bg-white p-6 rounded-2xl shadow-md">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-              <div className="flex-shrink-0 ml-4">
-                <img src={doctorData.img} alt="Doctor" className="w-30 h-30 rounded-full" />
-              </div>
+              
               <div>
-                <h2 className="text-2xl font-bold mb-1">د. {doctorData.name}</h2>
-                <p className="text-blue-600 font-medium">{doctorData.specialization}</p>
+                <h2 className="text-2xl font-bold mb-1">
+                  د. {doctorData.name}
+                </h2>
+                <p className="text-blue-600 font-medium">
+                  {doctorData.specialization}
+                </p>
                 <p className="text-gray-600 mt-2">{doctorData.location}</p>
-                {doctorData.phone && <p className="text-gray-600">📞 {doctorData.phone}</p>}
-                {doctorData.email && <p className="text-gray-600">✉️ {doctorData.email}</p>}
+                {doctorData.phone && (
+                  <p className="text-gray-600">📞 {doctorData.phone}</p>
+                )}
+                {doctorData.email && (
+                  <p className="text-gray-600">✉️ {doctorData.email}</p>
+                )}
               </div>
               <div className="mt-4 md:mt-0 text-center md:text-left">
                 <p className="text-2xl font-semibold text-gray-800">
@@ -122,38 +163,51 @@ export default function DoctorAppointment() {
             </div>
           </div>
 
-          {/* Active tab */}
           <div className="flex bg-gray-100 rounded-3xl mt-6 text-gray-700 font-small overflow-hidden">
             <button
-              className={`flex-1 py-3 ${activeTab === "نبذة" ? "bg-white border-b-2 border-blue-600" : "hover:bg-white"}`}
+              className={`flex-1 py-3 ${
+                activeTab === "نبذة"
+                  ? "bg-white border-b-2 border-blue-600"
+                  : "hover:bg-white"
+              }`}
               onClick={() => setActiveTab("نبذة")}
             >
               نبذة
             </button>
             <button
-              className={`flex-1 py-3 ${activeTab === "العنوان" ? "bg-white border-b-2 border-blue-600" : "hover:bg-white"}`}
+              className={`flex-1 py-3 ${
+                activeTab === "العنوان"
+                  ? "bg-white border-b-2 border-blue-600"
+                  : "hover:bg-white"
+              }`}
               onClick={() => setActiveTab("العنوان")}
             >
               العنوان
             </button>
           </div>
 
-          {/* Tab Contents */}
+          {/* Tab Content */}
           <div className="bg-white p-6 rounded-2xl shadow-md mt-4">
             {activeTab === "نبذة" && (
               <div dir="rtl">
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">نبذة عن الطبيب</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800">
+                  نبذة عن الطبيب
+                </h3>
 
                 {doctorData.education?.length > 0 && (
                   <div className="mb-5">
-                    <h4 className="text-lg font-semibold text-gray-700 mb-2">🎓 التعليم والمؤهلات</h4>
+                    <h4 className="text-lg font-semibold text-gray-700 mb-2">
+                      🎓 التعليم والمؤهلات
+                    </h4>
                     {doctorData.education}
                   </div>
                 )}
 
                 {doctorData.experience?.length > 0 && (
                   <div className="mb-5">
-                    <h4 className="text-lg font-semibold text-gray-700 mb-2">🩺 الخبرة</h4>
+                    <h4 className="text-lg font-semibold text-gray-700 mb-2">
+                      🩺 الخبرة
+                    </h4>
                     <p> {doctorData.experience} سنوات من الخبرة</p>
                   </div>
                 )}
@@ -162,29 +216,41 @@ export default function DoctorAppointment() {
 
             {activeTab === "العنوان" && (
               <div dir="rtl">
-                <h3 className="text-xl font-semibold mb-4 text-gray-800">العنوان ومعلومات الاتصال</h3>
-
+                <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                  العنوان ومعلومات الاتصال
+                </h3>
                 <div className="mb-5">
-                  <h4 className="text-lg font-semibold text-gray-700 mb-2">🏥 العنوان</h4>
+                  <h4 className="text-lg font-semibold text-gray-700 mb-2">
+                    🏥 العنوان
+                  </h4>
                   <p className="text-gray-600">{doctorData.location}</p>
                   {doctorData.addressDetails && (
-                    <p className="text-gray-600">{doctorData.addressDetails}</p>
+                    <p className="text-gray-600">
+                      {doctorData.addressDetails}
+                    </p>
                   )}
                 </div>
-
                 <div>
-                  <h4 className="text-lg font-semibold text-gray-700 mb-2">📞 معلومات الاتصال</h4>
-                  {doctorData.phone && <p className="text-gray-600">📱 {doctorData.phone}</p>}
-                  {doctorData.email && <p className="text-gray-600">✉️ {doctorData.email}</p>}
+                  <h4 className="text-lg font-semibold text-gray-700 mb-2">
+                    📞 معلومات الاتصال
+                  </h4>
+                  {doctorData.phone && (
+                    <p className="text-gray-600">📱 {doctorData.phone}</p>
+                  )}
+                  {doctorData.email && (
+                    <p className="text-gray-600">✉️ {doctorData.email}</p>
+                  )}
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* Right: Booking & Services section */}
+        {/* Right: Booking */}
         <div className="bg-white p-6 rounded-2xl shadow-md h-fit">
-          <h3 className="text-xl text-center font-semibold mb-4 text-gray-800">حجز موعد سريع</h3>
+          <h3 className="text-xl text-center font-semibold mb-4 text-gray-800">
+            حجز موعد سريع
+          </h3>
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
@@ -192,7 +258,11 @@ export default function DoctorAppointment() {
               value={selectedDate}
               onChange={(newValue) => setSelectedDate(newValue)}
               slotProps={{
-                textField: { fullWidth: true, variant: "outlined", margin: "normal" },
+                textField: {
+                  fullWidth: true,
+                  variant: "outlined",
+                  margin: "normal",
+                },
               }}
             />
           </LocalizationProvider>
@@ -217,9 +287,11 @@ export default function DoctorAppointment() {
           {/* Services */}
           <div className="mt-6 pt-4 text-gray-700">
             <h4 className="text-lg font-semibold mb-2">الخدمات</h4>
-            {[{ label: "كشف أول", price: 300 },
+            {[
+              { label: "كشف أول", price: 300 },
               { label: "كشف متابعة", price: 250 },
-              { label: "استشارة هاتفية", price: 150 }].map((option) => (
+              { label: "استشارة هاتفية", price: 150 },
+            ].map((option) => (
               <label
                 key={option.label}
                 className={`flex justify-between items-center border rounded-xl p-2 mb-2 cursor-pointer transition ${
@@ -243,7 +315,7 @@ export default function DoctorAppointment() {
               </label>
             ))}
           </div>
-          
+
           {/* Book Button */}
           <button
             onClick={handleBooking}
@@ -262,9 +334,11 @@ export default function DoctorAppointment() {
               severity={
                 confirmation.startsWith("تم")
                   ? "success"
+                  : confirmation.startsWith("⚠")
+                  ? "warning"
                   : confirmation.startsWith("خطأ")
                   ? "error"
-                  : "warning"
+                  : "info"
               }
               sx={{ mt: 3, textAlign: "center", direction: "rtl" }}
             >
@@ -272,7 +346,7 @@ export default function DoctorAppointment() {
             </Alert>
           )}
 
-          {/* Life Insurance */}
+          {/* Insurance */}
           <div className="mt-6 border-t pt-4 text-gray-700">
             <h4 className="text-lg font-semibold mb-2">التأمين المقبول</h4>
             <ul className="space-y-1">
