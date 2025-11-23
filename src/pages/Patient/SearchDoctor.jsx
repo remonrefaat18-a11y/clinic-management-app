@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import DoctorCard from "../../components/doctorCard";
+import { useNavigate } from "react-router-dom";
+
 
 export default function SearchDoctor() {
+  const navigate = useNavigate();
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -78,12 +81,13 @@ export default function SearchDoctor() {
     >
       {/* Nav */}
       <nav className="bg-white shadow-sm flex items-center gap-3 text-right p-3 mb-6">
-        <button
-          className="px-4 py-2 rounded-xl transition-colors border border-transparent hover:bg-gray-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-300"
-          style={{ cursor: "pointer" }}
-        >
-          ← العودة
-        </button>
+         <button
+      className="px-4 py-2 rounded-xl transition-colors border border-transparent hover:bg-gray-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-300"
+      style={{ cursor: "pointer" }}
+      onClick={() => navigate("/patient/profile")} // هنا تحط المسار لصفحة PatientProfile
+    >
+      ← العودة
+    </button>
         <h3 className="text-2xl font-semibold text-gray-800">البحث عن طبيب</h3>
       </nav>
 

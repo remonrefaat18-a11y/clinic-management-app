@@ -64,7 +64,8 @@ function LandingPage()
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        px: 10, // padding في الاتجاهين بدل pr/pl
+        px: 4,
+        gap: 2, // padding في الاتجاهين بدل pr/pl
     }}
     >
     <Typography

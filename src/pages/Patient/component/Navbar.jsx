@@ -56,83 +56,78 @@ export default function Navbar() {
 
   return (
     <Box
+  sx={{
+    width: "100%",
+    backgroundColor: "#fff",
+    borderBottom: "1px solid #e0e0e0",
+    py: 1,
+  }}
+>
+  <Container maxWidth="lg">
+    <Box
       sx={{
-        width: "100%",
-        backgroundColor: "#fff",
-        borderBottom: "1px solid #e0e0e0",
-        py: 1,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexDirection: { xs: "column", sm: "row" }, // responsive
+        gap: { xs: 1, sm: 0 }, // مسافة بين العناصر لو عمودي
       }}
     >
-      <Container maxWidth="lg">
-        <Box
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <FavoriteBorderOutlinedIcon sx={{ color: "blue", fontSize: 30 }} />
+        <Box>
+          <Typography variant="subtitle1">
+            {userName || "اسم المريض..."}
+          </Typography>
+
+          <Typography variant="body2" sx={{ opacity: 0.7 }}>
+            لوحة تحكم المريض
+          </Typography>
+        </Box>
+      </Box>
+
+      <Stack
+        direction={{ xs: "column", sm: "row" }} // تتحول لأعمدة على الشاشات الصغيرة
+        spacing={1}
+        sx={{ mt: { xs: 1, sm: 0 } }}
+      >
+        <Button
+          variant="contained"
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            backgroundColor: "rgb(30, 95, 225)",
+            textTransform: "none",
+            "&:focus": { outline: "none", boxShadow: "none" },
+          }}
+          onClick={() => navigate("/patient/doctors/search")}
+        >
+          <SearchIcon sx={{ mr: 0.5 }} /> البحث عن طبيب
+        </Button>
+        <Button
+          onClick={() => navigate("/patient/measurement/add")}
+          variant="contained"
+          sx={{
+            backgroundColor: "rgb(45, 154, 45)",
+            textTransform: "none",
+            "&:focus": { outline: "none", boxShadow: "none" },
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <FavoriteBorderOutlinedIcon sx={{ color: "blue", fontSize: 30 }} />
-            <Box>
-              <Typography variant="subtitle1">
-                {userName || "اسم المريض..."}
-              </Typography>
-
-              <Typography variant="body2" sx={{ opacity: 0.7 }}>
-                لوحة تحكم المريض
-              </Typography>
-            </Box>
-          </Box>
-
-          <Stack direction="row" spacing={1}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "rgb(30, 95, 225)",
-                textTransform: "none",
-
-                "&:focus": {
-                  outline: "none",
-                  boxShadow: "none",
-                },
-              }}
-              onClick={() => navigate("/patient/doctors/search")}
-            >
-              <SearchIcon sx={{ mr: 0.5 }} /> البحث عن طبيب
-            </Button>
-            <Button
-              onClick={() => navigate("/patient/measurement/add")}
-              variant="contained"
-              sx={{
-                backgroundColor: "rgb(45, 154, 45)",
-                textTransform: "none",
-
-                "&:focus": {
-                  outline: "none",
-                  boxShadow: "none",
-                },
-              }}
-            >
-              <AddIcon sx={{ mr: 0.5 }} /> إضافة قياس
-            </Button>
-            <Button
-              variant="outlined"
-              sx={{
-                borderColor: "#e5e5e5",
-                textTransform: "none",
-
-                "&:focus": {
-                  outline: "none",
-                  boxShadow: "none",
-                },
-              }}
-              onClick={handleLogout}
-            >
-              <LogoutIcon sx={{ mr: 0.5 }} /> خروج
-            </Button>
-          </Stack>
-        </Box>
-      </Container>
+          <AddIcon sx={{ mr: 0.5 }} /> إضافة قياس
+        </Button>
+        <Button
+          variant="outlined"
+          sx={{
+            borderColor: "#e5e5e5",
+            textTransform: "none",
+            "&:focus": { outline: "none", boxShadow: "none" },
+          }}
+          onClick={handleLogout}
+        >
+          <LogoutIcon sx={{ mr: 0.5 }} /> خروج
+        </Button>
+      </Stack>
     </Box>
+  </Container>
+</Box>
+
   );
 }
